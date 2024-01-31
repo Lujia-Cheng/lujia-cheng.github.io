@@ -1,0 +1,59 @@
+name: Deploy Frontend
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache dependcies
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: ./frontend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies if not found
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Build react to webpage
+        run: npm run build
+
+      - name: Upload built files as artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./frontend/build
+
+  deploy:
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

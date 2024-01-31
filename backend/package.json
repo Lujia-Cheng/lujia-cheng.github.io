@@ -1,0 +1,34 @@
+{
+  "name": "lcheng-persoanl-webpage-backend",
+  "version": "0.1.0",
+  "description": "Backend of the webpage",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "test": "npm start"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "bcrypt": "^5.1.1",
+    "faker": "^6.6.6",
+    "validator": "^13.11.0",
+    "mongoose": "^6.12.4",
+    "mongodb": "^5.9.2",
+    "jsonwebtoken": "^9.0.2",
+    "openai": "^4.24.1"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "repository": {
+    "url": "https://lujia-cheng.github.io"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}
