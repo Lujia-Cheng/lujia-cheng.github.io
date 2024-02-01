@@ -38,14 +38,16 @@ jobs:
           repository: ${{ secrets.BACKEND_GIT_URL }}
           path: glitch-repo
 
+
       - name: Initialize git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Fetch Changes from GitHub Repository
+      - name: Checkout ./backend of GitHub repository
         uses: actions/checkout@v4
         with:
+          working-directory: ./backend
           path: github-repo
 
       - name: Copy files from GitHub Repository to Glitch.com Repository
