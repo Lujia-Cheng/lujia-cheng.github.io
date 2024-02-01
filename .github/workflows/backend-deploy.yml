@@ -38,10 +38,9 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          mkdir -p /tmp
-          cd /tmp
-          git clone ${{ secrets.BACKEND_GIT_URL }}
-          cp -r ${{ github.workspace }}/github-repo/backend/* .
+          git clone ${{ secrets.BACKEND_GIT_URL }} glitch-repo
+          cd glitch-repo
+          cp -rf ${{ github.workspace }}/github-repo/backend/* .
           git add .
           git commit -m "Github Actions: deploy to glitch.com"
           git push ${{ secrets.BACKEND_GIT_URL }}
