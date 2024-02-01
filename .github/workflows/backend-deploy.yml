@@ -44,8 +44,8 @@ jobs:
 
       - name: Initialize git
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Fetch Changes from GitHub Repository
         uses: actions/checkout@v4
