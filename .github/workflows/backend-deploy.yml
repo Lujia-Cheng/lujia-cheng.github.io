@@ -38,7 +38,6 @@ jobs:
           repository: ${{ secrets.BACKEND_GIT_URL }}
           path: glitch-repo
 
-
       - name: Initialize git
         run: |
           git config --global user.name "github-actions[bot]"
@@ -47,14 +46,14 @@ jobs:
       - name: Checkout ./backend of GitHub repository
         uses: actions/checkout@v4
         with:
-          working-directory: ./backend
           path: github-repo
 
       - name: Copy files from GitHub Repository to Glitch.com Repository
-        run: cp -r ${{ github.workspace }}/github-repo/* ${{ github.workspace }}/glitch-repo
+        run: cp -r ${{ github.workspace }}/github-repo/backend/* ${{ github.workspace }}/glitch-repo
 
       - name: Commit changes
         run: |
+          cd ${{ github.workspace }}/glitch-repo
           git add .
           git commit -m "Github Actions: deploy to glitch.com"
 
