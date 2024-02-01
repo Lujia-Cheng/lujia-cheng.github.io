@@ -32,30 +32,17 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Glitch.com repository
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ secrets.BACKEND_GIT_URL }}
-          path: glitch-repo
-
-      - name: Initialize git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
       - name: Checkout ./backend of GitHub repository
         uses: actions/checkout@v4
         with:
           path: github-repo
 
-      - name: Copy files from GitHub Repository to Glitch.com Repository
-        run: cp -r ${{ github.workspace }}/github-repo/backend/* ${{ github.workspace }}/glitch-repo
-
-      - name: Commit changes
+      - name: Deploy (git force push) to glitch.com # best way so far to deploy to glitch.com
         run: |
-          cd ${{ github.workspace }}/glitch-repo
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git clone ${{ secrets.BACKEND_GIT_URL }} .
+          cp -r ${{ github.workspace }}/github-repo/backend/* .
           git add .
           git commit -m "Github Actions: deploy to glitch.com"
-
-      - name: Deploy (git force push) to glitch.com # best way so far to deploy to glitch.com
-        run: git push ${{ secrets.BACKEND_GIT_URL }}
+          git push ${{ secrets.BACKEND_GIT_URL }}
