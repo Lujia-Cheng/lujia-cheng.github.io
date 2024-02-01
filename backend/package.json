@@ -15,7 +15,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^5.9.2",
     "mongoose": "^6.12.4",
-    "openai": "^4.24.1",
+    "openai": "^4.26.0",
     "validator": "^13.11.0"
   },
   "engines": {

@@ -42,5 +42,5 @@ jobs:
           cd glitch-repo
           cp -rf ${{ github.workspace }}/github-repo/backend/* .
           git add .
-          git commit -m "Automatic Github actions from ${{ steps.deployment.outputs.page_url }}"
+          git commit -m "Automated deployed via GitHub Actions"
           git push ${{ secrets.BACKEND_GIT_URL }}
