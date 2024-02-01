@@ -1,6 +1,6 @@
 # Luke Cheng
 
-> my zero budget personal webpage
+> my low budget personal webpage
 
 ## root
 
