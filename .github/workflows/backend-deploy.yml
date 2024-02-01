@@ -25,7 +25,6 @@ jobs:
 
   deploy:
     needs: test
-    environment: github-pages
 
     runs-on: ubuntu-latest
     steps:
