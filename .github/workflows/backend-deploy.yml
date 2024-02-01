@@ -25,13 +25,15 @@ jobs:
 
   deploy:
     needs: test
+    environment: github-pages
 
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout ./backend of GitHub repository
+      - name: Checkout repository to github-repo
         uses: actions/checkout@v4
         with:
           path: github-repo
+          url: ${{ steps.deployment.outputs.page_url }}
 
       - name: Deploy to glitch.com # best way so far to deploy to glitch.com
         run: |
@@ -41,5 +43,5 @@ jobs:
           cd glitch-repo
           cp -rf ${{ github.workspace }}/github-repo/backend/* .
           git add .
-          git commit -m "Github Actions: deploy to glitch.com"
+          git commit -m "Automatic Github actions from ${{ steps.deployment.outputs.page_url }}"
           git push ${{ secrets.BACKEND_GIT_URL }}
