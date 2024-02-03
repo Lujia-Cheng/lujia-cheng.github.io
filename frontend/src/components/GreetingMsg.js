@@ -1,7 +1,7 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 
-function GrettingMsg() {
+function GreetingMsg() {
   return (
     <p>
       <Typography variant="h1">Hi, I'm Luke.</Typography>
@@ -11,4 +11,4 @@ function GrettingMsg() {
     </p>
   );
 }
-export default GrettingMsg;
+export default GreetingMsg;
