@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import GreetingMsg from "./components/GreetingMsg";
 import NavBar from "./components/NavBar";
@@ -53,7 +53,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      <CssBaseline/>
       <Box
         display="flex"
         flexDirection="column"
@@ -65,7 +65,7 @@ function App() {
           justifyContent="center"
           alignItems="center"
         >
-          {showGreetingMsg ? <GreetingMsg /> : null}
+          {showGreetingMsg ? <GreetingMsg/> : null}
         </Box>
         {/* todo evaluate the bar when scrolling https://mui.com/material-ui/react-app-bar/#back-to-top*/}
         <AppBar
@@ -73,12 +73,12 @@ function App() {
           position={showGreetingMsg ? "relative" : "sticky"}
           top="0"
         >
-          <NavBar value={section} onChange={changeSection} />
+          <NavBar value={section} onChange={changeSection}/>
         </AppBar>
       </Box>
       <Box padding="0 8em">
-        {/* todo sticky navbar while scrolling */}
-        <Content value={section} />
+        {/* todo sticky navbar while scrolling  */}
+        <Content value={section}/>
       </Box>
     </ThemeProvider>
   );
