@@ -16,6 +16,10 @@ B.S. in chemistry and philosophy | 08/2016 – 12/2020
 
 - Relevant Courses: Software Design, Java, Ethics & AI
 
+## SKILL
+
+Java, JavaScript/Typescript, Node.js/npm, ReactJS, HTML, CSS, Python, C#, Unity, Git/GitHub, mySQL, MongoDB/mongoose, C++, Bootstrap, AWS, Docker, jQuery, Android, Linux
+
 ## PROJECT
 
 ### Android Morse Code Keyboard [DEMO](https://github.com/Lujia-Cheng/MorseCodeIME)
@@ -61,10 +65,6 @@ B.S. in chemistry and philosophy | 08/2016 – 12/2020
 - Game4SocialImpact - First Penguin award
 - Virginia Tech Parkour Club - Treasurer
 - CyberForce2023
-
-## SKILL
-
-Java, JavaScript/Typescript, Node.js/npm, ReactJS, HTML, CSS, Python, C#, Unity, Git/GitHub, mySQL, MongoDB/mongoose, C++, Bootstrap, AWS, Docker, jQuery, Android, Linux
 
 ## EXPERIENCE
 
