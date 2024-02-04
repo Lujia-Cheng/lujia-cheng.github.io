@@ -48,7 +48,7 @@ function App() {
     }
 
     return () => {
-      scrollDown();
+      scrollToTop();
       if (greetingMsgElement) {
         observer.unobserve(greetingMsgElement);
       }
@@ -58,7 +58,7 @@ function App() {
   // navbar & content sync
   const [section, setSection] = React.useState(1);
 
-  function scrollDown() {
+  function scrollToNav() {
     // scroll sown until the greeting message out of the view
     const topNavBar = document
       .getElementById("nav")
@@ -66,8 +66,12 @@ function App() {
     window.scroll({top: topNavBar + window.scrollY, behavior: "smooth"});
   }
 
+  function scrollToTop() {
+    window.scroll({top: 0, behavior: "smooth"});
+  }
+
   function changeSection(event, newSection) {
-    scrollDown();
+    showGreetingMsg ? scrollToNav() : scrollToTop();
     setSection(newSection);
   }
 
