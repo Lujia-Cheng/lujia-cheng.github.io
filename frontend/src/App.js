@@ -48,6 +48,7 @@ function App() {
     }
 
     return () => {
+      scrollDown();
       if (greetingMsgElement) {
         observer.unobserve(greetingMsgElement);
       }
