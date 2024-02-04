@@ -2,10 +2,11 @@ import React from "react";
 import Resume from "./Resume";
 import ChatAssistant from "./ChatAssistant";
 import Todo from "./Todo";
+
 function Content({ value }) {
   const content = {
-    0: <Resume />,
-    1: <ChatAssistant />,
+    1: <Resume/>,
+    2: <ChatAssistant/>,
   };
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy
 

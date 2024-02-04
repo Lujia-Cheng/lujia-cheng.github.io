@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import GreetingMsg from "./components/GreetingMsg";
 import NavBar from "./components/NavBar";
 import Grid from "@mui/material/Grid";
 import Content from "./components/Content";
+import Footer from "./components/Footer";
 import AppBar from "@mui/material/AppBar";
 
 function App() {
@@ -26,60 +27,74 @@ function App() {
   const [showGreetingMsg, setShowGreetingMsg] = React.useState(true);
 
   useEffect(() => {
-    function handleScroll() {
-      const nav = document.getElementById("navbar");
-
-      if (nav?.getBoundingClientRect().top <= 0) {
-        setShowGreetingMsg(false);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // If greeting message is not intersecting (visible) in the viewport, hide it
+          if (!entry.isIntersecting) {
+            setShowGreetingMsg(false);
+          }
+        });
+      },
+      {
+        rootMargin: "0px",
+        threshold: 0.1, // Adjust threshold to control when the callback is executed
       }
+    );
+
+    const greetingMsgElement = document.getElementById("greeting-msg");
+    if (greetingMsgElement) {
+      observer.observe(greetingMsgElement);
     }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      if (greetingMsgElement) {
+        observer.unobserve(greetingMsgElement);
+      }
+    };
   }, []);
 
   // navbar & content sync
-  const [section, setSection] = React.useState(0);
+  const [section, setSection] = React.useState(1);
+
+  function scrollDown() {
+    // scroll sown until the greeting message out of the view
+    const topNavBar = document
+      .getElementById("nav")
+      ?.getBoundingClientRect().top;
+    window.scroll({top: topNavBar + window.scrollY, behavior: "smooth"});
+  }
 
   function changeSection(event, newSection) {
-    // scroll thus the top the nav bar line up with the top of the screen
-    const navbar = document.getElementById("navbar");
-    window.scrollTo({
-      top: navbar.getBoundingClientRect().top + window.scrollY,
-      behavior: "smooth",
-    });
-
-    // change section on click
+    scrollDown();
     setSection(newSection);
   }
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Grid display="flex" flexDirection="column">
-        {showGreetingMsg && (
+      {showGreetingMsg ? (
+        <Grid display="flex" flexDirection="column" height="100vh">
           <Grid
-            flexGrow={1}
+            id="greeting-msg"
             display="flex"
             justifyContent="center"
             alignItems="center"
-            height="95vh"
+            flexGrow="1"
           >
             <GreetingMsg />
           </Grid>
-        )}
-        {/* todo evaluate the bar when scrolling https://mui.com/material-ui/react-app-bar/#back-to-top*/}
-
-        <AppBar
-          id="navbar"
-          height="10vh"
-          position={showGreetingMsg ? "relative" : "sticky"}
-        >
-          <NavBar value={section} onChange={changeSection} />
+          <AppBar id="nav" position="relative">
+            <NavBar value={section} onChange={changeSection}/>
+          </AppBar>
+        </Grid>
+      ) : (
+        <AppBar id="nav" position="sticky">
+          <NavBar value={section} onChange={changeSection}/>
         </AppBar>
-
-        <Content value={section} />
-      </Grid>
+      )}
+      <Content value={section}/>
+      <Footer/>
     </ThemeProvider>
   );
 }
