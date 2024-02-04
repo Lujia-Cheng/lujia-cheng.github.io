@@ -14,10 +14,8 @@ function Resume() {
   }, []);
 
   return (
-    <Paper variant="outlined" elevation={3} square={false}>
-      <Box margin="2em 6em">
-        <Markdown children={markdown} />
-      </Box>
+    <Paper variant="outlined" square={false} padding="2em">
+      <Markdown children={markdown} />
     </Paper>
   );
 }

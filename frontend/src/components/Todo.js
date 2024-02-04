@@ -1,15 +1,15 @@
 import React from "react";
-import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
 function Todo() {
   return (
-    <Box
+    <Grid
       display="flex"
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      minHeight="100vh"
+      height="100vh"
     >
       <Typography variant="h3" align="center">
         🚧🚧 Under Construction 🚧🚧
@@ -17,7 +17,7 @@ function Todo() {
       <Typography variant="h5" align="center">
         Check back in a week or two!
       </Typography>
-    </Box>
+    </Grid>
   );
 }
 
