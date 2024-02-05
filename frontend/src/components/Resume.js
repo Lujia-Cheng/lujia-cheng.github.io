@@ -3,7 +3,6 @@ import Markdown from "react-markdown";
 import resume from "../assets/CV.md";
 import Paper from "@mui/material/Paper";
 
-
 function Resume() {
   const [markdown, setMarkdown] = React.useState("");
 
@@ -14,9 +13,13 @@ function Resume() {
   }, []);
 
   return (
-    <Paper variant="outlined" square={false} padding="2em">
-      <Markdown children={markdown} />
-    </Paper>
+    <div style={{ padding: "5%" }}>
+      <Paper elevation={3}>
+        <div style={{ padding: "4em" }}>
+          <Markdown children={markdown} />
+        </div>
+      </Paper>
+    </div>
   );
 }
 

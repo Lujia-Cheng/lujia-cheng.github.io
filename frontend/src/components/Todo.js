@@ -9,7 +9,7 @@ function Todo() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      height="100vh"
+      flexGrow="1"
     >
       <Typography variant="h3" align="center">
         🚧🚧 Under Construction 🚧🚧

@@ -18,22 +18,22 @@ function NavBar({ value, onChange }) {
   return (
     <Grid display="flex" justifyContent="space-between">
       <Tabs value={value} onChange={onChange} variant="scrollable">
-        <Tab label="About" icon={<InfoIcon/>} iconPosition="start"/>
-        <Tab label="CV" icon={<AssignmentIndIcon/>} iconPosition="start"/>
+        <Tab label="About" icon={<InfoIcon />} iconPosition="start" />
+        <Tab label="CV" icon={<AssignmentIndIcon />} iconPosition="start" />
         <Tab label="Chat" icon={<ChatIcon />} iconPosition="start" />
-        <Tab label="Blog" icon={<CreateIcon/>} iconPosition="start"/>
-        <Tab label="Projects" icon={<CodeIcon/>} iconPosition="start"/>
+        <Tab label="Blog" icon={<CreateIcon />} iconPosition="start" />
+        <Tab label="Projects" icon={<CodeIcon />} iconPosition="start" />
       </Tabs>
 
       <Grid margin-left="auto" display="flex" justifyContent="space-between">
-        <Divider orientation="vertical" />
+        <Divider flexItem orientation="vertical" variant="middle" />
         <Button
           label="LinkedIn"
           onClick={() => window.open("https://www.linkedin.com/in/luke-cheng/")}
         >
           <LinkedInIcon />
         </Button>
-        <Divider orientation="vertical" />
+        <Divider flexItem orientation="vertical" variant="middle" />
         <Button
           label="Github"
           onClick={() => window.open("https://github.com/Lujia-Cheng")}

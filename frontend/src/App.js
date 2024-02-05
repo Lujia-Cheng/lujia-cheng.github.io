@@ -1,16 +1,19 @@
-import React, {useEffect} from "react";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+import React, { useEffect, useState } from "react";
+import { createTheme, useMediaQuery } from "@mui/material";
 import GreetingMsg from "./components/GreetingMsg";
 import NavBar from "./components/NavBar";
-import Grid from "@mui/material/Grid";
 import Content from "./components/Content";
-import Footer from "./components/Footer";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@emotion/react";
+import Divider from "@mui/material/Divider";
 import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import "./App.css";
 
 function App() {
-  // set theme based on user's system preference
+  const [showGreeting, setGreetingVisibility] = useState(true);
+  const [page, setPage] = useState(0);
+
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const theme = React.useMemo(
@@ -22,84 +25,72 @@ function App() {
       }),
     [prefersDarkMode]
   );
+  // sync the page state with the NavBar
+  const updatePage = (event, newValue) => {
+    setPage(newValue);
+  };
 
-  // hide a greeting message when it's scrolled out of the view
-  const [showGreetingMsg, setShowGreetingMsg] = React.useState(true);
-
+  // use Observer API to detect when the greeting message is no longer visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // If greeting message is not intersecting (visible) in the viewport, hide it
-          if (!entry.isIntersecting) {
-            setShowGreetingMsg(false);
+          if (entry && !entry.isIntersecting) {
+            console.log("greeting message is no longer visible");
+            // greeting message is no longer visible
+            setGreetingVisibility(false);
           }
         });
       },
       {
-        rootMargin: "0px",
-        threshold: 0.1, // Adjust threshold to control when the callback is executed
+        threshold: 0,
       }
     );
 
-    const greetingMsgElement = document.getElementById("greeting-msg");
-    if (greetingMsgElement) {
-      observer.observe(greetingMsgElement);
-    }
+    const greetingElement = document.getElementById("greeting");
+    console.log("greetingElement", greetingElement);
+    if (greetingElement) observer.observe(greetingElement);
 
-    return () => {
-      scrollToTop();
-      if (greetingMsgElement) {
-        observer.unobserve(greetingMsgElement);
-      }
-    };
+    return () => observer.disconnect();
   }, []);
-
-  // navbar & content sync
-  const [section, setSection] = React.useState(1);
-
-  function scrollToNav() {
-    // scroll sown until the greeting message out of the view
-    const topNavBar = document
-      .getElementById("nav")
-      ?.getBoundingClientRect().top;
-    window.scroll({top: topNavBar + window.scrollY, behavior: "smooth"});
-  }
-
-  function scrollToTop() {
-    window.scroll({top: 0, behavior: "smooth"});
-  }
-
-  function changeSection(event, newSection) {
-    showGreetingMsg ? scrollToNav() : scrollToTop();
-    setSection(newSection);
-  }
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {showGreetingMsg ? (
-        <Grid display="flex" flexDirection="column" height="100vh">
-          <Grid
-            id="greeting-msg"
+      <Box className="scroll-container" minHeight="100vh" overflowY="scroll">
+        <Box
+          className="snap-item"
+          display={showGreeting ? "flex" : "none"}
+          minHeight="100vh"
+          flexDirection="column"
+          justifyContent="space-between"
+        >
+          <Box
+            id="greeting"
+            flexGrow={1}
             display="flex"
-            justifyContent="center"
             alignItems="center"
-            flexGrow="1"
+            justifyContent="center"
           >
             <GreetingMsg />
-          </Grid>
-          <AppBar id="nav" position="relative">
-            <NavBar value={section} onChange={changeSection}/>
-          </AppBar>
-        </Grid>
-      ) : (
-        <AppBar id="nav" position="sticky">
-          <NavBar value={section} onChange={changeSection}/>
-        </AppBar>
-      )}
-      <Content value={section}/>
-      <Footer/>
+          </Box>
+
+          <Box position="sticky" top={0}>
+            <Divider variant="middle" />
+            <NavBar value={page} onChange={updatePage} />
+            <Divider variant="middle" />
+          </Box>
+        </Box>
+        <Box className="snap-item" height="100vh">
+          {!showGreeting && (
+            <AppBar position="sticky">
+              <NavBar value={page} onChange={updatePage} />
+            </AppBar>
+          )}
+
+          <Content value={page} />
+        </Box>
+      </Box>
     </ThemeProvider>
   );
 }

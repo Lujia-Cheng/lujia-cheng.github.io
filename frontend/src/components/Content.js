@@ -2,9 +2,11 @@ import React from "react";
 import Resume from "./Resume";
 import ChatAssistant from "./ChatAssistant";
 import Todo from "./Todo";
+import About from "./About";
 
-function Content({ value }) {
+function Content({value}) {
   const content = {
+    0: <About/>,
     1: <Resume/>,
     2: <ChatAssistant/>,
   };
@@ -15,7 +17,7 @@ function Content({ value }) {
       if (prop in content) {
         return target[prop];
       }
-      return <Todo />;
+      return <Todo/>;
     },
   };
 
