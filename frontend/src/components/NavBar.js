@@ -23,13 +23,15 @@ export default function NavBar({ value, onChange }) {
         value={value}
         onChange={onChange}
         variant="scrollable"
+        scrollButtons
+  allowScrollButtonsMobile
       >
         {/* todo change to dropdown if screen size small see https://mui.com/material-ui/customization/breakpoints/ */}
         <Tab label="About" icon={<InfoIcon />} iconPosition="start" />
         <Tab label="CV" icon={<AssignmentIndIcon />} iconPosition="start" />
         <Tab label="Chat" icon={<ChatIcon />} iconPosition="start" />
-        <Tab label="Blog" icon={<CreateIcon />} iconPosition="start" />
-        <Tab label="Projects" icon={<CodeIcon />} iconPosition="start" />
+        <Tab label="Blog" disabled icon={<CreateIcon />} iconPosition="start" />
+        <Tab label="Projects" disabled icon={<CodeIcon />} iconPosition="start" />
       </Tabs>
 
       <div className="external-links-container">
