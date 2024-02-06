@@ -1,0 +1,11 @@
+.section-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.external-links-container {
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

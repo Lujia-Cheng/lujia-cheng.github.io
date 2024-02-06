@@ -1,23 +1,30 @@
 import React from "react";
-import Tab from "@mui/material/Tab";
+
 import Tabs from "@mui/material/Tabs";
-import Divider from "@mui/material/Divider";
+import Tab from "@mui/material/Tab";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
 
-import GithubIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import ServerStatus from "./ServerStatus";
 import InfoIcon from "@mui/icons-material/Info";
-import ChatIcon from "@mui/icons-material/Chat";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
-
+import ChatIcon from "@mui/icons-material/Chat";
 import CreateIcon from "@mui/icons-material/Create";
 import CodeIcon from "@mui/icons-material/Code";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GithubIcon from "@mui/icons-material/GitHub";
+import "../styles/NavBar.css";
 
-function NavBar({ value, onChange }) {
+export default function NavBar({ value, onChange }) {
   return (
-    <Grid display="flex" justifyContent="space-between">
-      <Tabs value={value} onChange={onChange} variant="scrollable">
+    <div className="section-container">
+      <Tabs
+        selectionFollowsFocus
+        value={value}
+        onChange={onChange}
+        variant="scrollable"
+      >
+        {/* todo change to dropdown if screen size small see https://mui.com/material-ui/customization/breakpoints/ */}
         <Tab label="About" icon={<InfoIcon />} iconPosition="start" />
         <Tab label="CV" icon={<AssignmentIndIcon />} iconPosition="start" />
         <Tab label="Chat" icon={<ChatIcon />} iconPosition="start" />
@@ -25,24 +32,21 @@ function NavBar({ value, onChange }) {
         <Tab label="Projects" icon={<CodeIcon />} iconPosition="start" />
       </Tabs>
 
-      <Grid margin-left="auto" display="flex" justifyContent="space-between">
+      <div className="external-links-container">
+        <Button disabled>
+          <ServerStatus />
+        </Button>
         <Divider flexItem orientation="vertical" variant="middle" />
         <Button
-          label="LinkedIn"
           onClick={() => window.open("https://www.linkedin.com/in/luke-cheng/")}
         >
           <LinkedInIcon />
         </Button>
         <Divider flexItem orientation="vertical" variant="middle" />
-        <Button
-          label="Github"
-          onClick={() => window.open("https://github.com/Lujia-Cheng")}
-        >
+        <Button onClick={() => window.open("https://github.com/Lujia-Cheng")}>
           <GithubIcon />
         </Button>
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 }
-
-export default NavBar;
