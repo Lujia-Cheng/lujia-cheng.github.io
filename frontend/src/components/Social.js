@@ -1,5 +1,2 @@
-import React from "react";
+export default function Social() {}
 
-function Social() {}
-
-export default Social;

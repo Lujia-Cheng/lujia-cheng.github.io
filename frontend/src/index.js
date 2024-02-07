@@ -4,14 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ServerStatusProvider } from "./contexts/ServerStatusContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ServerStatusProvider>
-      {" "}
-      <App />
-    </ServerStatusProvider>
+    <ThemeProvider>
+      <CssBaseline />
+      <ServerStatusProvider>
+        <App />
+      </ServerStatusProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

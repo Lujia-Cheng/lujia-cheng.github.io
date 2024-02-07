@@ -1,15 +1,15 @@
-import React from "react";
-
 import { useMediaQuery, useTheme } from "@mui/material";
+import { useThemeContext } from "../contexts/ThemeContext";
 
 import ServerIndicator from "./ServerIndicator";
+import { useServerStatus } from "../contexts/ServerStatusContext";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import Tooltip from "@mui/material/Tooltip";
 
 import InfoIcon from "@mui/icons-material/Info";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
@@ -18,12 +18,16 @@ import CreateIcon from "@mui/icons-material/Create";
 import CodeIcon from "@mui/icons-material/Code";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GithubIcon from "@mui/icons-material/GitHub";
+import LightMode from "@mui/icons-material/LightMode";
+import DarkMode from "@mui/icons-material/DarkMode";
 
 import "../styles/NavBar.css";
 
 export default function NavBar({ value, onChange }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const { toggleTheme } = useThemeContext();
+  let { serverStatus = "sleeping" } = useServerStatus();
 
   // Example function to handle dropdown change
   const handleDropdownChange = (event) => {
@@ -31,17 +35,18 @@ export default function NavBar({ value, onChange }) {
   };
 
   const navItems = [
-    { label: "About", value: 0, icon: <InfoIcon />},
-    { label: "CV", value: 1, icon: <AssignmentIndIcon />},
-    { label: "Chat", value: 2, icon: <ChatIcon />, disabled:true },
-    { label: "Blogs", value: 3, icon: <CreateIcon />,},
-    { label: "Projects", value: 4, icon: <CodeIcon />, },
+    { label: "About", value: 0, icon: <InfoIcon /> },
+    { label: "CV", value: 1, icon: <AssignmentIndIcon /> },
+    { label: "Chat", value: 2, icon: <ChatIcon />, disabled: true },
+    { label: "Blogs", value: 3, icon: <CreateIcon /> },
+    { label: "Projects", value: 4, icon: <CodeIcon /> },
   ];
 
   return (
     <nav className="navbar">
       {isSmallScreen ? (
-        <Select class="from-select"
+        <Select
+          class="from-select"
           value={value}
           onChange={handleDropdownChange}
           displayEmpty
@@ -77,21 +82,39 @@ export default function NavBar({ value, onChange }) {
         </Tabs>
       )}
 
-      <div className="external-links-container">
-        <Button disabled>
-          <ServerIndicator />
-        </Button>
-        <Divider flexItem orientation="vertical" variant="middle" />
-        <Button
-          onClick={() => window.open("https://www.linkedin.com/in/luke-cheng/")}
+      <Tooltip className="push-right" title={"Server: " + serverStatus}>
+        <span // prevent disabled button blocking tooltip
+          style={{ display: "flex" }}
+        >
+          <IconButton size="large" disabled="true">
+            <ServerIndicator />
+          </IconButton>
+        </span>
+      </Tooltip>
+      <Tooltip
+        title={theme.palette.mode === "dark" ? "Light Mode" : "Dark Mode"}
+      >
+        <IconButton size="large" onClick={toggleTheme}>
+          {theme.palette.mode === "dark" ? <LightMode /> : <DarkMode />}
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="My LinkedIn">
+        <IconButton
+          size="large"
+          onClick={() => window.open("https://www.linkedin.com/in/luke-cheng")}
         >
           <LinkedInIcon />
-        </Button>
-        <Divider flexItem orientation="vertical" variant="middle" />
-        <Button onClick={() => window.open("https://github.com/Lujia-Cheng")}>
-          <GithubIcon />
-        </Button>
-      </div>
+        </IconButton>
+      </Tooltip>
+
+      <Tooltip title="My GitHub">
+        <IconButton
+          size="large"
+          onClick={() => window.open("https://github.com/Lujia-Cheng")}
+        >
+          <GithubIcon size="large" color="inherit" />
+        </IconButton>
+      </Tooltip>
     </nav>
   );
 }
