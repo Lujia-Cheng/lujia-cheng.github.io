@@ -1,0 +1,21 @@
+.idle {
+  opacity: transparent;
+}
+
+.connecting {
+  animation: flash 3s infinite;
+}
+
+.connected {
+  color: lime;
+}
+
+.error {
+  color: red;
+}
+
+@keyframes flash {    
+  50% {
+    color: lime;
+  }
+}

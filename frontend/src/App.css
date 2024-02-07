@@ -1,7 +1,7 @@
 .scroll-container {
   height: 100vh;
-  overflow-y: scroll; /* Enable vertical scrolling */
-  scroll-snap-type: y mandatory; /* Mandatory vertical snapping */
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
 }
 
 .snap-item {

@@ -34,13 +34,9 @@ function App() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry && !entry.isIntersecting) {
-            console.log("greeting message is no longer visible");
-            // greeting message is no longer visible
-            setGreetingVisibility(false);
-          }
-        });
+        if (!entries[0].isIntersecting) {
+          setGreetingVisibility(false);
+        }
       },
       {
         threshold: 0,
@@ -75,11 +71,13 @@ function App() {
             <GreetingMsg />
           </Box>
 
-          <Box position="sticky" top={0}>
-            <Divider variant="middle" />
+          <Divider />
+
+          <Box position="sticky">
             <NavBar value={page} onChange={updatePage} />
-            <Divider variant="middle" />
           </Box>
+
+          <Divider />
         </Box>
         <Box className="snap-item" height="100vh">
           {!showGreeting && (
