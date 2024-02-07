@@ -48,4 +48,4 @@ export function useServerStatus() {
     );
   }
   return context;
-}
+};

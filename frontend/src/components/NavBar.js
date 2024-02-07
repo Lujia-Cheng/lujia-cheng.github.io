@@ -27,12 +27,12 @@ export default function NavBar({ value, onChange }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { toggleTheme } = useThemeContext();
-  let { serverStatus = "sleeping" } = useServerStatus();
+  const { status } = useServerStatus(); // do not change variable name
 
-  // Example function to handle dropdown change
-  const handleDropdownChange = (event) => {
+  // Function to handle dropdown change
+  function handleDropdownChange(event) {
     onChange(event, event.target.value);
-  };
+  }
 
   const navItems = [
     { label: "About", value: 0, icon: <InfoIcon /> },
@@ -82,7 +82,7 @@ export default function NavBar({ value, onChange }) {
         </Tabs>
       )}
 
-      <Tooltip className="push-right" title={"Server: " + serverStatus}>
+      <Tooltip className="push-right" title={"Server: " + status}>
         <span // prevent disabled button blocking tooltip
           style={{ display: "flex" }}
         >
