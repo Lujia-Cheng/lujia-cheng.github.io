@@ -22,15 +22,15 @@ function About() {
           But now I'm here, coding algorithms,building websites, and fighting
           bugs (features). I blame it on the "Intro to Java" class; who knew
           that one of my requirements course (for chemistry!) would turn out to
-          be my gateway drug to coding?
+          be my gateway to programming.
           <br />
           <br />
           Right now, I'm working to buff this tiny website up. I'm planning to
           put on a chat assistant to keep visitors to this tiny website
           entertained. It will hand you all sorts of cool stuff in the future.
           Heck, I might even put a mini CTF (capture the flag) game in it. But
-          for now, you'll need to use the good-old navigation bar."
-        </Typography>{" "}
+          for now, you'll need to use the good-old navigation bar.
+        </Typography>
       </Paper>
     </div>
   );

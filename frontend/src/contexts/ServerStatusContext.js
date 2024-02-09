@@ -1,16 +1,15 @@
-import React, { createContext, useContext, useState } from "react";
+import {createContext, useContext, useState} from "react";
 
-// Enum
-export const ServerStatus = {
-  // todo convert to typescript in the future
-  Idle: "idle",
-  Connecting: "connecting",
-  Connected: "connected",
-  Timeout: "timeout",
-  Error: "error",
+// enums for server status
+export const SERVER_STATUS = {
+  STANDBY: "standby",
+  CONNECTING: "connecting",
+  CONNECTED: "connected",
+  TIMEOUT: "timeout",
+  ERROR: "error",
 };
 
-// Type definition
+// TODO Type definition
 // interface ServerStatusContextType {
 //   status: ServerStatus;
 //   setStatus: React.Dispatch<React.SetStateAction<ServerStatus>>;
@@ -24,12 +23,13 @@ export const ServerStatus = {
 const ServerStatusContext = createContext();
 
 // Provider
-export const ServerStatusProvider = ({ children }) => {
-  const [status, setStatus] = useState(ServerStatus.Idle); // Default status
+export const ServerStatusProvider = ({children}) => {
+  const [status, setStatus] = useState(SERVER_STATUS.STANDBY); // Default status
 
   const value = {
     status,
     setStatus,
+    SERVER_STATUS
   };
 
   return (
@@ -48,4 +48,4 @@ export function useServerStatus() {
     );
   }
   return context;
-};
+}

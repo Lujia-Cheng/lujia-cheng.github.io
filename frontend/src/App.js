@@ -1,43 +1,41 @@
-import { useEffect, useState } from "react";
-import GreetingMsg from "./components/GreetingMsg";
-import NavBar from "./components/NavBar";
-import Content from "./components/Content";
-import Divider from "@mui/material/Divider";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
+import React, {useEffect, useState} from "react";
 import "./App.css";
+import GreetingMsg from "./components/GreetingMsg";
+import NavigationPanel from "./components/NavigationPanel";
+import {AppBar, Box} from "@mui/material";
+import UtilityPanel from "./components/UtilityPanel";
+import {PAGE_CONTENT} from "./contexts/PageContext";
 
 function App() {
   const [showGreeting, setGreetingVisibility] = useState(true);
   const [page, setPage] = useState(0);
 
-  // sync the page state with the NavBar
+  // todo use PageContext to control switching tab
   const updatePage = (event, newValue) => {
     setPage(newValue);
   };
 
   // use Observer API to detect when the greeting message is no longer visible
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0].isIntersecting) {
-          setGreetingVisibility(false);
-        }
-      },
-      {
-        threshold: 0,
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) {
+        setGreetingVisibility(false);
       }
-    );
+    }, {
+      threshold: 0,
+    });
 
     const greetingElement = document.getElementById("greeting");
     console.log("greetingElement", greetingElement);
     if (greetingElement) observer.observe(greetingElement);
 
     return () => observer.disconnect();
-  }, []);
+  }, [showGreeting]);
+
 
   return (
-    <Box className="scroll-container" minHeight="100vh" overflowY="scroll">
+    // fixme it's barely working, the main issue is that i'm trying to make the initial screen showing only the greeting message & the navigation panel. The greeting message will be hidden as it scrolls down. But html just really don't like out of view point content.
+    <Box className="scroll-container">
       <Box
         className="snap-item"
         display={showGreeting ? "flex" : "none"}
@@ -52,26 +50,28 @@ function App() {
           alignItems="center"
           justifyContent="center"
         >
-          <GreetingMsg />
+          <GreetingMsg/>
         </Box>
 
-        <Divider />
 
-        <Box position="sticky">
-          <NavBar value={page} onChange={updatePage} />
+        <Box position="sticky" display="flex" flexDirection="row" justifyContent="space-between">
+          <NavigationPanel value={page} onChange={updatePage}/>
+          <UtilityPanel/>
         </Box>
 
-        <Divider />
       </Box>
-      <Box className="snap-item" height="100vh">
+      <Box className={showGreeting ? "snap-item" : ""} height="100vh">
         {!showGreeting && (
-          <AppBar position="sticky">
-            <NavBar color="secondary"
-            value={page} onChange={updatePage} />
+          <AppBar position="sticky" display="flex" flexDirection="row" justifyContent="space-between">
+            <Box position="sticky" display="flex" flexDirection="row" justifyContent="space-between">
+              <NavigationPanel value={page} onChange={updatePage}/>
+              <UtilityPanel/>
+            </Box>
           </AppBar>
         )}
-
-        <Content value={page} />
+        <div style={{height: "100vh"}}>
+          {PAGE_CONTENT[page].content}
+        </div>
       </Box>
     </Box>
   );
