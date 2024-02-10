@@ -4,16 +4,11 @@ import GreetingMsg from "./components/GreetingMsg";
 import NavigationPanel from "./components/NavigationPanel";
 import {AppBar, Box} from "@mui/material";
 import UtilityPanel from "./components/UtilityPanel";
-import {PAGE_CONTENT} from "./contexts/PageContext";
+import {usePage} from "./contexts/PageContext";
 
 function App() {
   const [showGreeting, setGreetingVisibility] = useState(true);
-  const [page, setPage] = useState(0);
-
-  // todo use PageContext to control switching tab
-  const updatePage = (event, newValue) => {
-    setPage(newValue);
-  };
+  const {getPageContent} = usePage();
 
   // use Observer API to detect when the greeting message is no longer visible
   useEffect(() => {
@@ -34,10 +29,9 @@ function App() {
 
 
   return (
-    // fixme it's barely working, the main issue is that i'm trying to make the initial screen showing only the greeting message & the navigation panel. The greeting message will be hidden as it scrolls down. But html just really don't like out of view point content.
-    <Box className="scroll-container">
+    <div className="scroll-container">
       <Box
-        className="snap-item"
+        className="snap-item initial-page"
         display={showGreeting ? "flex" : "none"}
         minHeight="100vh"
         flexDirection="column"
@@ -53,27 +47,29 @@ function App() {
           <GreetingMsg/>
         </Box>
 
-
         <Box position="sticky" display="flex" flexDirection="row" justifyContent="space-between">
-          <NavigationPanel value={page} onChange={updatePage}/>
+          <NavigationPanel/>
           <UtilityPanel/>
         </Box>
 
       </Box>
-      <Box className={showGreeting ? "snap-item" : ""} height="100vh">
+      <div className={showGreeting ? "snap-item" : "full-height"}>
         {!showGreeting && (
-          <AppBar position="sticky" display="flex" flexDirection="row" justifyContent="space-between">
-            <Box position="sticky" display="flex" flexDirection="row" justifyContent="space-between">
-              <NavigationPanel value={page} onChange={updatePage}/>
-              <UtilityPanel/>
-            </Box>
+          <AppBar
+            sx={{
+              position: "sticky", flexDirection: "row", justifyContent: "space-between"
+            }}>
+            <NavigationPanel/>
+            <UtilityPanel/>
           </AppBar>
         )}
-        <div style={{height: "100vh"}}>
-          {PAGE_CONTENT[page].content}
-        </div>
-      </Box>
-    </Box>
+
+        <Box >
+          {getPageContent()}
+        </Box>
+
+      </div>
+    </div>
   );
 }
 

@@ -10,27 +10,30 @@ import Blog from "../pages/Blog";
 import CodeIcon from "@mui/icons-material/Code";
 import Project from "../pages/Project";
 
-const PageContext = createContext(undefined);
+
 export const PAGE_CONTENT = [
-  {name: "About", icon: <InfoIcon/>, content: <About/>},
-  {name: "CV", icon: <AssignmentIndIcon/>, content: <Resume/>},
-  {name: "Chat", icon: <ChatIcon/>, content: <ChatAssistant/>, disabled: true},
-  {name: "Blogs", icon: <CreateIcon/>, content: <Blog/>, disabled: true},
-  {name: "Projects", icon: <CodeIcon/>, content: <Project/>}
+  {pageIndex: 0, name: "About", icon: <InfoIcon/>, content: <About/>},
+  {pageIndex: 1, name: "CV", icon: <AssignmentIndIcon/>, content: <Resume/>},
+  {pageIndex: 2, name: "Chat", icon: <ChatIcon/>, content: <ChatAssistant/>, disabled: true},
+  {pageIndex: 3, name: "Blogs", icon: <CreateIcon/>, content: <Blog/>, disabled: true},
+  {pageIndex: 4, name: "Projects", icon: <CodeIcon/>, content: <Project/>}
 ]
-export const PageProvider = ({children}) => {
-  const [currentPage, setCurrentPage] = useState(PAGE_CONTENT[0]);
 
+const PageContext = createContext();
+
+export function PageProvider({children}) {
+  const [pageIndex, setPageIndex] = useState(0);
+  // I'll need to read & write page number, plus read indexes, names, icons, of all pages in NavigationPanel.js, and read content in Content.js
   // Function to update the current page, could be used for navigation changes
-  const changePage = (newValue) => {
-    setCurrentPage(PAGE_CONTENT[newValue]);
-  };
+  function getPageContent() {
+    return PAGE_CONTENT[pageIndex].content;
+  }
 
-  const value = {currentPage, changePage,};
+  const value = {PAGE_CONTENT, getPageContent, pageIndex, setPageIndex};
 
   return <PageContext.Provider value={value}>
     {children}
   </PageContext.Provider>;
-};
+}
 
 export const usePage = () => useContext(PageContext);

@@ -8,13 +8,15 @@ import GithubIcon from "@mui/icons-material/GitHub";
 import "../styles/UtilityPanel.css";
 import {useServerStatus} from "../contexts/ServerStatusContext";
 import {useThemeContext} from "../contexts/ThemeContext";
-import {useTheme} from "@mui/material";
+import {Divider, useTheme} from "@mui/material";
 
 export default function UtilityPanel() {
   const theme = useTheme();
   const {toggleTheme} = useThemeContext();
   const {status} = useServerStatus(); // do not change variable name
   return (<div className="utility-panel">
+    <Divider orientation="vertical" flexItem
+             variant="middle"/>
     <Tooltip title={"Server: " + status}>
         <span // prevent disabled button blocking tooltip
           style={{display: "flex"}}
