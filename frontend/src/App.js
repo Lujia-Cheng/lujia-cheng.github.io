@@ -1,14 +1,33 @@
-import React, {useEffect, useState} from "react";
-import "./App.css";
-import GreetingMsg from "./components/GreetingMsg";
-import NavigationPanel from "./components/NavigationPanel";
-import {AppBar, Box} from "@mui/material";
-import UtilityPanel from "./components/UtilityPanel";
-import {usePage} from "./contexts/PageContext";
+import { useEffect, useState } from "react";
+import { usePage } from "./contexts/PageContext";
+import Header from "./components/Header";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import AppBar from "@mui/material/AppBar";
 
 function App() {
   const [showGreeting, setGreetingVisibility] = useState(true);
-  const {getPageContent} = usePage();
+  const { getPageContent } = usePage();
+  const [greetingOpacity, setGreetingOpacity] = useState(1);
+
+  useEffect(() => {
+    // todo fade out the greeting message as the user scrolls down
+    function handleScroll() {
+      // Calculate the current opacity based on scroll position.
+      // Adjust these values as needed.
+      const maxScroll = 200; // Maximum scroll value at which the component is fully transparent
+      const scrollY = window.scrollY;
+      const newOpacity = Math.max(1 - scrollY / maxScroll, 0);
+
+      setGreetingOpacity(newOpacity);
+    }
+
+    // Attach the event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up the event listener on component unmount
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // use Observer API to detect when the greeting message is no longer visible
   useEffect(() => {
@@ -16,8 +35,6 @@ function App() {
       if (!entries[0].isIntersecting) {
         setGreetingVisibility(false);
       }
-    }, {
-      threshold: 0,
     });
 
     const greetingElement = document.getElementById("greeting");
@@ -25,51 +42,78 @@ function App() {
     if (greetingElement) observer.observe(greetingElement);
 
     return () => observer.disconnect();
-  }, [showGreeting]);
-
+  }, []);
 
   return (
-    <div className="scroll-container">
+    <Box
+      sx={{
+        height: "100vh",
+        overflowY: "scroll",
+        scrollSnapType: "y proximity",
+      }}
+    >
       <Box
-        className="snap-item initial-page"
-        display={showGreeting ? "flex" : "none"}
-        minHeight="100vh"
-        flexDirection="column"
-        justifyContent="space-between"
+        sx={{
+          height: "100vh",
+          scrollSnapAlign: "start",
+          display: showGreeting ? "flex" : "none",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          minHeight: "100vh",
+        }}
       >
         <Box
           id="greeting"
-          flexGrow={1}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            flexGrow: 1,
+          }}
         >
-          <GreetingMsg/>
-        </Box>
-
-        <Box position="sticky" display="flex" flexDirection="row" justifyContent="space-between">
-          <NavigationPanel/>
-          <UtilityPanel/>
-        </Box>
-
-      </Box>
-      <div className={showGreeting ? "snap-item" : "full-height"}>
-        {!showGreeting && (
-          <AppBar
+          <Box
             sx={{
-              position: "sticky", flexDirection: "row", justifyContent: "space-between"
-            }}>
-            <NavigationPanel/>
-            <UtilityPanel/>
-          </AppBar>
-        )}
-
-        <Box >
-          {getPageContent()}
+              opacity: greetingOpacity,
+              transition: "opacity 0.5s ease-in-out",
+            }}
+          >
+            <Typography variant="h1">Hi, I'm Luke.</Typography>
+            <Typography variant="h2">Welcome to my website.</Typography>
+          </Box>
         </Box>
 
-      </div>
-    </div>
+        {/* temporary navigation when the greeting message is visible */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            position: "sticky",
+          }}
+        >
+          <Header />
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          height: showGreeting ? "100vh" : "auto",
+          scrollSnapAlign: "start",
+        }}
+      >
+        <AppBar
+          sx={{
+            display: showGreeting ? "none" : "flex",
+            position: "sticky",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Header />
+        </AppBar>
+        <Box>{getPageContent()}</Box>
+      </Box>
+    </Box>
   );
 }
 
