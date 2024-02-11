@@ -13,10 +13,10 @@ import Project from "../pages/Project";
 
 export const PAGE_CONTENT = [
   {pageIndex: 0, name: "About", icon: <InfoIcon/>, content: <About/>},
-  {pageIndex: 1, name: "CV", icon: <AssignmentIndIcon/>, content: <Resume/>},
-  {pageIndex: 2, name: "Chat", icon: <ChatIcon/>, content: <ChatAssistant/>, disabled: true},
+  {pageIndex: 1, name: "Chat", icon: <ChatIcon/>, content: <ChatAssistant/>},
+  {pageIndex: 2, name: "CV", icon: <AssignmentIndIcon/>, content: <Resume/>},
   {pageIndex: 3, name: "Blogs", icon: <CreateIcon/>, content: <Blog/>, disabled: true},
-  {pageIndex: 4, name: "Projects", icon: <CodeIcon/>, content: <Project/>}
+  {pageIndex: 4, name: "Projects", icon: <CodeIcon/>, content: <Project/>, disabled: true}
 ]
 
 const PageContext = createContext();

@@ -25,7 +25,7 @@ function App() {
     // Attach the event listener
     window.addEventListener("scroll", handleScroll);
 
-    // Clean up the event listener on component unmount
+    // Clean up the event listener on a component unmount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -49,7 +49,7 @@ function App() {
       sx={{
         height: "100vh",
         overflowY: "scroll",
-        scrollSnapType: "y proximity",
+        scrollSnapType: "y mandatory",
       }}
     >
       <Box
