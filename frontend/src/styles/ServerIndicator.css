@@ -1,5 +1,4 @@
 .standby {
-  opacity: transparent;
 }
 
 .connecting {
@@ -10,11 +9,15 @@
   color: lime;
 }
 
+.timeout {
+  color: orange;
+}
+
 .error {
   color: red;
 }
 
-@keyframes flash {    
+@keyframes flash {
   50% {
     color: lime;
   }

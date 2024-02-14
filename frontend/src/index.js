@@ -3,10 +3,10 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import {ServerStatusProvider} from "./contexts/ServerStatusContext";
-import {ThemeProvider} from "./contexts/ThemeContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import CssBaseline from "@mui/material/CssBaseline";
-import {PageProvider} from "./contexts/PageContext";
+import { PageProvider } from "./contexts/PageContext";
+import { ServerStatusProvider } from "./contexts/ServerStatusContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,7 +15,7 @@ root.render(
       <CssBaseline />
       <ServerStatusProvider>
         <PageProvider>
-          <App/>
+          <App />
         </PageProvider>
       </ServerStatusProvider>
     </ThemeProvider>

@@ -1,7 +1,7 @@
-export enum ServerStatus {
-    Standby,
-    Connecting,
-    Connected,
-    Timeout,
-    Error,
-}
+export const ServerStatus = {
+  Standby: "standby",
+  Connecting: "connecting",
+  Connected: "connected",
+  Timeout: "timeout",
+  Error: "error",
+};
