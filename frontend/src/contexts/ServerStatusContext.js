@@ -1,51 +1,23 @@
-import {createContext, useContext, useState} from "react";
+import React, {createContext, useState} from 'react';
+import {ServerStatus} from '../enums/ServerStatus';
 
-// enums for server status
-export const SERVER_STATUS = {
-  STANDBY: "standby",
-  CONNECTING: "connecting",
-  CONNECTED: "connected",
-  TIMEOUT: "timeout",
-  ERROR: "error",
-};
 
-// TODO Type definition
-// interface ServerStatusContextType {
-//   status: ServerStatus;
-//   setStatus: React.Dispatch<React.SetStateAction<ServerStatus>>;
-// }
+export const ServerStatusContext = createContext();
 
-// interface ServerStatusProviderProps {
-//   children: ReactNode;
-// }
-
-// Initialize the context
-const ServerStatusContext = createContext();
-
-// Provider
 export const ServerStatusProvider = ({children}) => {
-  const [status, setStatus] = useState(SERVER_STATUS.STANDBY); // Default status
+  const [serverStatus, setServerStatus] = useState(ServerStatus.Standby);
 
-  const value = {
-    status,
-    setStatus,
-    SERVER_STATUS
+  const updateServerStatus = (status) => {
+    if (Object.values(ServerStatus).includes(status)) {
+      setServerStatus(status);
+    } else {
+      console.error('Invalid server status:', status);
+    }
   };
 
   return (
-    <ServerStatusContext.Provider value={value}>
+    <ServerStatusContext.Provider value={{serverStatus, updateServerStatus}}>
       {children}
     </ServerStatusContext.Provider>
   );
 };
-
-// Hook
-export function useServerStatus() {
-  const context = useContext(ServerStatusContext);
-  if (context === undefined) {
-    throw new Error(
-      "useServerStatus must be used within a ServerStatusProvider"
-    );
-  }
-  return context;
-}
