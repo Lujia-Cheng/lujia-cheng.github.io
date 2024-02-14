@@ -16,21 +16,23 @@ export default function NavigationPanel() {
   }
 
   return (
-    <Tabs
-      selectionFollowsFocus
-      value={pageIndex}
-      onChange={changePageNumber}
-      variant="scrollable"
-    >
-      {PAGE_CONTENT.map((page) => (
-        <Tab
-          key={page.name}
-          label={page.name}
-          icon={page.icon}
-          iconPosition={isSmallScreen ? "bottom" : "start"}
-          disabled={page.disabled}
-        />
-      ))}
-    </Tabs>
+    <nav>
+      <Tabs
+        selectionFollowsFocus
+        value={pageIndex}
+        onChange={changePageNumber}
+        variant="scrollable"
+      >
+        {PAGE_CONTENT.map((page) => (
+          <Tab
+            key={page.name}
+            label={page.name}
+            icon={page.icon}
+            iconPosition={isSmallScreen ? "bottom" : "start"}
+            disabled={page.disabled}
+          />
+        ))}
+      </Tabs>
+    </nav>
   );
 }

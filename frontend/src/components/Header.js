@@ -4,7 +4,7 @@ import Divider from "@mui/material/Divider";
 
 export default function Header() {
   return (
-    <div
+    <header
       style={{
         height: "100%",
         width: "100%",
@@ -22,6 +22,6 @@ export default function Header() {
         sx={{ marginLeft: "auto" }}
       />
       <UtilityPanel />
-    </div>
+    </header>
   );
 }

@@ -41,6 +41,6 @@ jobs:
           git clone ${{ secrets.BACKEND_GIT_URL }} glitch-repo
           cd glitch-repo
           cp -rf ${{ github.workspace }}/github-repo/backend/* .
-          git add .
+          git add -A
           git commit -m "Automated deployed via GitHub Actions"
           git push ${{ secrets.BACKEND_GIT_URL }}

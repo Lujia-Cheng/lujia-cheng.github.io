@@ -4,17 +4,17 @@ import Header from "./components/Header";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
+import Footer from "./components/Footer";
 
 function App() {
   const [showGreeting, setGreetingVisibility] = useState(true);
-  const { getPageContent } = usePage();
   const [greetingOpacity, setGreetingOpacity] = useState(1);
+  const { getPageContent } = usePage();
 
   useEffect(() => {
     // todo fade out the greeting message as the user scrolls down
     function handleScroll() {
       // Calculate the current opacity based on scroll position.
-      // Adjust these values as needed.
       const maxScroll = 200; // Maximum scroll value at which the component is fully transparent
       const scrollY = window.scrollY;
       const newOpacity = Math.max(1 - scrollY / maxScroll, 0);
@@ -97,7 +97,7 @@ function App() {
       </Box>
       <Box
         sx={{
-          height: showGreeting ? "100vh" : "auto",
+          minHeight: showGreeting ? "100vh" : "auto",
           scrollSnapAlign: "start",
         }}
       >
@@ -112,6 +112,7 @@ function App() {
           <Header />
         </AppBar>
         <Box>{getPageContent()}</Box>
+        {/* <Footer /> */}
       </Box>
     </Box>
   );

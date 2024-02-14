@@ -109,14 +109,14 @@ export default function ChatAssistant() {
     <Box
       sx={{
         height: "100%",
-        maxWidth: "600px",
+        maxWidth: "500px",
         margin: "0 auto",
         padding: "20px",
       }}
     >
       <Paper
         elevation={3}
-        sx={{ maxHeight: "800px", overflow: "auto", padding: "10px" }}
+        sx={{  overflow: "auto", padding: "10px" }}
       >
         {chatHistory.map((msg, index) => (
           <Box
