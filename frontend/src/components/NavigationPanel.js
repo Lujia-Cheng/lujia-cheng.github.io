@@ -16,7 +16,7 @@ export default function NavigationPanel() {
   }
 
   return (
-    <nav>
+    
       <Tabs
         selectionFollowsFocus
         value={pageIndex}
@@ -33,6 +33,6 @@ export default function NavigationPanel() {
           />
         ))}
       </Tabs>
-    </nav>
+    
   );
 }
