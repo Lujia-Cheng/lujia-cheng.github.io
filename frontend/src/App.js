@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
-import Footer from "./components/Footer";
+//import Footer from "./components/Footer";
 
 function App() {
   const [showGreeting, setGreetingVisibility] = useState(true);
