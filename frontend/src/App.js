@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { usePage } from "./contexts/PageContext";
+
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import AppBar from "@mui/material/AppBar";
-//import Footer from "./components/Footer";
 
-function App() {
+export default function App() {
   const [showGreeting, setGreetingVisibility] = useState(true);
   const [greetingOpacity, setGreetingOpacity] = useState(1);
   const { getPageContent } = usePage();
@@ -48,7 +50,7 @@ function App() {
     <Box
       sx={{
         height: "100vh",
-        overflowY: "scroll",
+        overflowY: showGreeting ? "scroll" : "auto",
         scrollSnapType: "y mandatory",
       }}
     >
@@ -59,7 +61,6 @@ function App() {
           display: showGreeting ? "flex" : "none",
           flexDirection: "column",
           justifyContent: "space-between",
-          minHeight: "100vh",
         }}
       >
         <Box
@@ -97,25 +98,23 @@ function App() {
       </Box>
       <Box
         sx={{
-          minHeight: showGreeting ? "100vh" : "auto",
+          minHeight: "100vh",
           scrollSnapAlign: "start",
+          justifyContent: "space-between",
         }}
       >
         <AppBar
+          color="grey"
           sx={{
             display: showGreeting ? "none" : "flex",
             position: "sticky",
-            flexDirection: "row",
-            justifyContent: "space-between",
           }}
         >
           <Header />
         </AppBar>
-        <Box>{getPageContent()}</Box>
-        {/* <Footer /> */}
+        <article>{getPageContent()}</article>
+        <Footer />
       </Box>
     </Box>
   );
 }
-
-export default App;

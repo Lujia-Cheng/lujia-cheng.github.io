@@ -34,6 +34,8 @@ jobs:
 
       - name: Build react to webpage
         run: npm run build
+        env:
+          REACT_APP_API_URL: ${{ vars.REACT_APP_API_URL }}
 
       - name: Upload built files as artifact
         uses: actions/upload-pages-artifact@v3

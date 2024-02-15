@@ -1,33 +1,62 @@
 import React from "react";
-import packageInfo from "../../package.json";
-import Typography from "@mui/material/Typography";
+
+import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import CodeIcon from "@mui/icons-material/Code";
-import PublicIcon from "@mui/icons-material/Public";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+
+import GithubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 export default function Footer() {
   return (
-    <footer style={{ width: "100%" }}>
-      <Typography variant="body2" gutterBottom>
-        Built with React <CodeIcon />. Backend hosted by Glitch <PublicIcon />.
-      </Typography>
-      <Typography variant="body2">
-        <Link
-          href={packageInfo.repository.url.slice(0, -4)}
-          target="_blank"
-          rel="noopener"
-          sx={{
-            textDecoration: "none",
-            "&:hover": {
-              textDecoration: "underline",
-            },
-          }}
-        >
-          View on GitHub{" "}
-          <GitHubIcon sx={{ marginRight: 1, verticalAlign: "middle" }} />
+    <footer
+      style={{
+        padding: "1rem",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <Typography variant="body2" color="text.secondary">
+        {"Built with "}
+        <Link color="inherit" href="https://reactjs.org/">
+          React
         </Link>
+        {", backend hosted by "}
+        <Link color="inherit" href="https://www.glitch.com/">
+          Glitch
+        </Link>
+        {", and database provided by "}
+        <Link color="inherit" href="https://www.mongodb.com/">
+          MongoDB
+        </Link>
+        {"."}
       </Typography>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        sx={{ marginLeft: "auto" }}
+      >
+        Report website error to:
+      </Typography>
+      <Tooltip title="GitHub.com/Lujia-cheng">
+        <IconButton
+          size="large"
+          onClick={() => window.open("https://github.com/Lujia-Cheng")}
+        >
+          <GithubIcon color="inherit" />
+        </IconButton>
+      </Tooltip>
+      <Typography variant="body2" color="text.secondary">
+        Connect me on:
+      </Typography>
+      <Tooltip title="in/Luke-Cheng">
+        <IconButton
+          onClick={() => window.open("https://www.linkedin.com/in/luke-cheng")}
+        >
+          <LinkedInIcon />
+        </IconButton>
+      </Tooltip>
     </footer>
   );
 }
