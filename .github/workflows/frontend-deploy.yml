@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    environment: github-pages
     defaults:
       run:
         working-directory: ./frontend
