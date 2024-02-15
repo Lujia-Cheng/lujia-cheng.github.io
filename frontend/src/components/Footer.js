@@ -37,9 +37,12 @@ export default function Footer() {
         color="text.secondary"
         sx={{ marginLeft: "auto" }}
       >
-        Report website error to:
+        Report website issues to:
       </Typography>
-      <Tooltip title="GitHub.com/Lujia-cheng">
+      <Tooltip
+        aria-label="open GitHub.com/Lujia-cheng"
+        title="GitHub.com/Lujia-cheng"
+      >
         <IconButton
           size="large"
           onClick={() => window.open("https://github.com/Lujia-Cheng")}
@@ -50,7 +53,8 @@ export default function Footer() {
       <Typography variant="body2" color="text.secondary">
         Connect me on:
       </Typography>
-      <Tooltip title="in/Luke-Cheng">
+      <Tooltip aria-label="open LinkedIn.com/in/Luke-Cheng"
+      title="in/Luke-Cheng">
         <IconButton
           onClick={() => window.open("https://www.linkedin.com/in/luke-cheng")}
         >

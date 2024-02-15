@@ -22,13 +22,17 @@ export default function UtilityPanel() {
   return (
     <div>
       <Tooltip
+        aria-label="Toggle Light/Dark Mode"
         title={theme.palette.mode === "dark" ? "Light Mode" : "Dark Mode"}
       >
         <IconButton size="large" onClick={toggleTheme}>
           {theme.palette.mode === "dark" ? <LightMode /> : <DarkMode />}
         </IconButton>
       </Tooltip>
-      <Tooltip title={"Server Status: " + serverStatus}>
+      <Tooltip
+        aria-label={"Server Status" + serverStatus}
+        title={"Server Status: " + serverStatus}
+      >
         <span>
           <IconButton size="large" disabled={true}>
             <DnsOutlinedIcon className={serverStatus} />

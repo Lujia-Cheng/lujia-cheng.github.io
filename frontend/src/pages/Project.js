@@ -60,7 +60,7 @@ export default function Project() {
   return (
     <Grid container spacing={4} padding={4}>
       {projects.map((project) => (
-        <Grid item key={project.name} xs={6} md={4}>
+        <Grid item key={project.name} xs={12} sm={6} md={4}>
           <Card sx={{ height: "100%" }}>
             <CardHeader
               avatar={

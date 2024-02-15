@@ -26,6 +26,7 @@ export default function NavigationPanel() {
     >
       {PAGE_CONTENT.map((page) => (
         <Tab
+          aria-label={page.name}
           key={page.name}
           label={page.name}
           icon={page.icon}
