@@ -13,16 +13,13 @@ const {
 const app = express();
 
 // connect to DB
-const mongoDB =
-  "mongodb+srv://" +
-  process.env.DB_USER +
-  ":" +
-  process.env.DB_PASS +
-  "@" +
-  process.env.DB_HOST +
-  "/" +
-  process.env.DB_NAME;
-mongoose.connect(mongoDB);
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Error connecting to MongoDB:", err));
 
 app.use(cors());
 app.use(express.json());
@@ -80,6 +77,8 @@ app.post("/api/chat", async (req, res) => {
     const result = await chat.sendMessage(req.body.message);
     const response = result.response;
     res.status(400).json({ message: response });
+
+    // todo log the response to db
   }
 
   // todo api request via node @link https://platform.openai.com/docs/quickstart?context=node
@@ -90,6 +89,9 @@ app.use(function (request, response) {
   response.status(404).json({ message: "Undefined API routes" });
 });
 
-const listener = app.listen(process.env.PORT || 4000, function () {
-  console.log("Your app is listening on port " + listener.address().port);
-});
+const listener = app.listen(
+  process.env.PORT, // DO NOT CHANGE: undocumented env var in glitch.com
+  function () {
+    console.log("Your app is listening on port " + listener.address().port);
+  }
+);

@@ -2,15 +2,13 @@
 
 > my low budget personal webpage
 
-## root
-
 ## Frontend
 
 > React
 
 ## Backend
 
-> Express 
+> Express
 
 ## Database
 
