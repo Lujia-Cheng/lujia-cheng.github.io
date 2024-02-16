@@ -1,0 +1,25 @@
+{
+  "name": "lujia-cheng.github.io",
+  "version": "1.0.0",
+  "description": "Luke Cheng's personal website",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lujia-Cheng/lujia-cheng.github.io.git"
+  },
+  "keywords": [
+    "MERN",
+    "personal-website"
+  ],
+  "author": "Luke Cheng",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

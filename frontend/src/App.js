@@ -86,8 +86,14 @@ export default function App() {
           <Header />
         </Box>
       </AppBar>
-      <article>{getPageContent()}</article>
-      <Footer />
+      <Box
+        sx={{
+          height: greetingOpacity > 0 ? "100vh" : "auto",
+        }}
+      >
+        <article>{getPageContent()}</article>
+        <Footer />
+      </Box>
     </Box>
   );
 }

@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { ServerStatusContext } from "../contexts/ServerStatusContext";
+import React, {useContext, useEffect, useState} from "react";
+import {ServerStatusContext} from "../contexts/ServerStatusContext";
 
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -7,17 +7,17 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
-
-import packageInfo from "../../package.json";
-import { ServerStatus } from "../enums/ServerStatus";
+import {ServerStatus} from "../enums/ServerStatus";
 import SendIcon from "@mui/icons-material/Send";
 import StopIcon from "@mui/icons-material/Stop";
 
 export default function ChatAssistant() {
   const [chatHistory, setChatHistory] = useState([]);
   const [userInput, setUserInput] = useState("");
-  const { serverStatus, updateServerStatus } = useContext(ServerStatusContext);
+  const {serverStatus, updateServerStatus} = useContext(ServerStatusContext);
   const [waitingForServer, setWaitingForServer] = useState(false);
+  const [controller, setController] = useState();
+
 
   // fixme Load chat messages from sessionStorage
   useEffect(() => {
@@ -33,29 +33,32 @@ export default function ChatAssistant() {
   }, [chatHistory]);
 
   // handle cancel button
-  let controller = new AbortController();
-  const handleCancel = () => {
-    if (controller) {
-      controller.abort();
-    }
-  };
+  function handleCancel() {
+    controller?.abort();
+    setController(null);
+  }
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (!userInput) return; // Do nothing if userInput is empty
 
-    const userMessage = { text: userInput, isUser: true };
-    const timeout = 20000;
+    // init new AbortController for user cancel request
+    const newController = new AbortController();
+    setController(newController);
+
+    const userMessage = {text: userInput, role: "user"};
+
     setChatHistory((prevHistory) => [...prevHistory, userMessage]);
     setUserInput(""); // Reset userInput after submission
-    if (serverStatus === ServerStatus.Standby) {
-      // set server status to connecting only initially connection
+    if (serverStatus === ServerStatus.Standby) {// set server status to "connecting" only initial connection
       updateServerStatus(ServerStatus.Connecting);
     }
 
-    const botMessage = { isUser: false };
+    const botMessage = {role: "bot"};
 
     setWaitingForServer(true);
+
+    const reportToGithubMsg = `If this happens consistently, please report it to https://github.com/Lujia-Cheng/lujia-cheng.github.io/issues"}`
+    // todo move all api calls to seperate file
     await fetch(
       `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/api/chat`,
       {
@@ -63,12 +66,10 @@ export default function ChatAssistant() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: userInput }),
-        signal: AbortSignal.any([
-          // https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/any_static#examples
-          controller.signal,
-          AbortSignal.timeout(timeout),
-        ]),
+        body: JSON.stringify({
+          message: userInput, history: chatHistory
+        }),
+        signal: newController.signal,
       }
     )
       .then((res) => {
@@ -85,15 +86,10 @@ export default function ChatAssistant() {
             break;
           case "TimeoutError":
             // fixme it does not return this error according to https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static#return_value
-            botMessage.text = `Sorry, the server took way too long to respond. If this happens consistently, please report it to ${
-              packageInfo?.repository?.url?.slice(0, -4) + "/issues" ||
-              "my github issues page"
-            }`;
+            botMessage.text = `Sorry, the server took way too long to respond.`;
             updateServerStatus(ServerStatus.Timeout);
             break;
           case "TypeError":
-            botMessage.text = "Failed to connect to the server";
-            break;
           default:
             updateServerStatus(ServerStatus.Error);
         }
@@ -103,7 +99,7 @@ export default function ChatAssistant() {
         setWaitingForServer(false);
         setChatHistory((prevHistory) => [...prevHistory, botMessage]); // save bot message to chat history
       });
-  };
+  }
 
   return (
     <Box
@@ -114,14 +110,11 @@ export default function ChatAssistant() {
         padding: "20px",
       }}
     >
-      <Paper
-        elevation={3}
-        sx={{  overflow: "auto", padding: "10px" }}
-      >
+      <Paper elevation={3} sx={{overflow: "auto", padding: "10px"}}>
         {chatHistory.map((msg, index) => (
           <Box
             key={index}
-            sx={{ textAlign: msg.isUser ? "right" : "left", margin: "10px 0" }}
+            sx={{textAlign: msg.role === "user" ? "right" : "left", margin: "10px 0"}}
           >
             <Typography
               variant="body1"
@@ -130,7 +123,7 @@ export default function ChatAssistant() {
                 display: "inline-block",
                 padding: "10px",
                 borderRadius: "10px",
-                backgroundColor: msg.isUser ? "chartreuse" : "deepskyblue",
+                backgroundColor: msg.role === "user" ? "chartreuse" : "deepskyblue",
                 color: "black",
                 maxWidth: "80%",
               }}
@@ -141,12 +134,12 @@ export default function ChatAssistant() {
         ))}
       </Paper>
 
-      {waitingForServer && <LinearProgress />}
+      {waitingForServer && <LinearProgress/>}
       <Box
         component="form"
         onSubmit={handleSubmit}
         noValidate
-        sx={{ mt: 1, display: "flex", gap: "10px" }}
+        sx={{mt: 1, display: "flex", gap: "10px"}}
       >
         <TextField
           fullWidth
@@ -156,17 +149,17 @@ export default function ChatAssistant() {
           onChange={(e) => setUserInput(e.target.value)}
         />
         {waitingForServer ? (
-          <Button
-            variant="contained"
-            color="secondary"
-            type="cancel"
-            onClick={handleCancel}
-          >
-            <StopIcon />
+          <Button variant="contained" type="cancel" onClick={handleCancel}>
+            <StopIcon/>
           </Button>
         ) : (
-          <Button variant="contained" color="primary" type="submit">
-            <SendIcon />
+          <Button
+            disabled={!userInput}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            <SendIcon/>
           </Button>
         )}
       </Box>
