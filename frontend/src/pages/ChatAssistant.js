@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
-import { ServerStatus } from "../enums/ServerStatus";
+import { SERVER_STATUS } from "../contexts/ServerStatusContext";
 import SendIcon from "@mui/icons-material/Send";
 import StopIcon from "@mui/icons-material/Stop";
 
@@ -48,16 +48,16 @@ export default function ChatAssistant() {
 
     setChatHistory((prevHistory) => [...prevHistory, userMessage]);
     setUserInput(""); // Reset userInput after submission
-    if (serverStatus === ServerStatus.Standby) {
+    if (serverStatus === SERVER_STATUS.Standby) {
       // set server status to "connecting" only initial connection
-      updateServerStatus(ServerStatus.Connecting);
+      updateServerStatus(SERVER_STATUS.Connecting);
     }
 
     const botMessage = { role: "bot" };
 
     setWaitingForServer(true);
 
-    const reportToGithubMsg = `If this happens consistently, please report it to https://github.com/Lujia-Cheng/lujia-cheng.github.io/issues"}`;
+    const reportToGithubMsg = `If this happens consistently, please report it via the link in the footer.`;
     // todo move all api calls to seperate file
     await fetch(
       `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/api/chat`,
@@ -74,7 +74,7 @@ export default function ChatAssistant() {
       }
     )
       .then((res) => {
-        updateServerStatus(ServerStatus.Connected);
+        updateServerStatus(SERVER_STATUS.Connected);
         return res.json();
       })
       .then((data) => {
@@ -88,11 +88,14 @@ export default function ChatAssistant() {
           case "TimeoutError":
             // fixme it does not return this error according to https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static#return_value
             botMessage.text = `Sorry, the server took way too long to respond. ${reportToGithubMsg}`;
-            updateServerStatus(ServerStatus.Timeout);
+            updateServerStatus(SERVER_STATUS.Timeout);
             break;
           case "TypeError":
+            botMessage.text = `Sorry, the server is not responding. ${reportToGithubMsg}`;
+            updateServerStatus(SERVER_STATUS.Error);
+            break;
           default:
-            updateServerStatus(ServerStatus.Error);
+            updateServerStatus(SERVER_STATUS.Error);
         }
         console.log(`Error: type: ${err.name}, message: ${err.message}`);
       })

@@ -18,43 +18,50 @@ export default function Footer() {
       }}
     >
       <Typography variant="body2" color="text.secondary">
-        {"Built with "}
+        Built with&nbsp;
         <Link color="inherit" href="https://reactjs.org/">
           React
         </Link>
-        {", backend hosted by "}
+        , webpage deployed via&nbsp;
+        <Link color="inherit" href="https://pages.github.com/">
+          GitHub Pages
+        </Link>
+        , server hosted on&nbsp;
         <Link color="inherit" href="https://www.glitch.com/">
           Glitch
         </Link>
-        {", and database provided by "}
+        , and database provided by&nbsp;
         <Link color="inherit" href="https://www.mongodb.com/">
           MongoDB
         </Link>
-        {"."}
+        .
       </Typography>
       <Typography
         variant="body2"
         color="text.secondary"
         sx={{ marginLeft: "auto" }}
       >
-        Report website issues to:
+        Source code available on GitHub:
       </Typography>
       <Tooltip
         aria-label="open GitHub.com/Lujia-cheng"
         title="GitHub.com/Lujia-cheng"
       >
         <IconButton
-          size="large"
-          onClick={() => window.open("https://github.com/Lujia-Cheng")}
+          onClick={() =>
+            window.open("https://github.com/Lujia-Cheng/lujia-cheng.github.io")
+          }
         >
           <GithubIcon color="inherit" />
         </IconButton>
       </Tooltip>
       <Typography variant="body2" color="text.secondary">
-        Connect me on:
+        Connect me on LinkedIn:
       </Typography>
-      <Tooltip aria-label="open LinkedIn.com/in/Luke-Cheng"
-      title="in/Luke-Cheng">
+      <Tooltip
+        aria-label="open LinkedIn.com/in/Luke-Cheng"
+        title="in/Luke-Cheng"
+      >
         <IconButton
           onClick={() => window.open("https://www.linkedin.com/in/luke-cheng")}
         >

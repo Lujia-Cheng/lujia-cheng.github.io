@@ -23,6 +23,7 @@ export default function NavigationPanel() {
       value={pageIndex}
       onChange={changePageNumber}
       variant="scrollable"
+      textColor={theme.palette.mode === "dark" ? "primary" : "inherit"}
     >
       {PAGE_CONTENT.map((page) => (
         <Tab

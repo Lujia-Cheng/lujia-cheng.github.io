@@ -1,13 +1,20 @@
 import { createContext, useState } from "react";
-import { ServerStatus } from "../enums/ServerStatus";
+
+export const SERVER_STATUS = {
+  Standby: "standby",
+  Connecting: "connecting",
+  Connected: "connected",
+  Timeout: "timeout",
+  Error: "error",
+};
 
 export const ServerStatusContext = createContext();
 
 export const ServerStatusProvider = ({ children }) => {
-  const [serverStatus, setServerStatus] = useState(ServerStatus.Standby);
+  const [serverStatus, setServerStatus] = useState(SERVER_STATUS.Standby);
 
   const updateServerStatus = (newStatus) => {
-    if (Object.values(ServerStatus).includes(newStatus)) {
+    if (Object.values(SERVER_STATUS).includes(newStatus)) {
       setServerStatus(newStatus);
     } else {
       console.error("Invalid server status:", newStatus);

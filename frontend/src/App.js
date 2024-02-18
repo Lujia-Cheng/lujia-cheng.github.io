@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 export default function App() {
   const [greetingOpacity, setGreetingOpacity] = useState(1);
   const { getPageContent } = usePage();
+
   const scrollContainerRef = useRef(null); // Ref for the scrollable container
 
   useEffect(() => {
@@ -47,7 +48,7 @@ export default function App() {
       sx={{
         overflowY: "scroll",
         height: "100vh",
-        scrollSnapType: "y mandatory",
+        scrollSnapType: "y proximity",
       }}
     >
       <AppBar
