@@ -14,25 +14,24 @@ export default function Footer() {
       style={{
         padding: "1rem",
         display: "flex",
-        alignItems: "center",
       }}
     >
       <Typography variant="body2" color="text.secondary">
-        Built with&nbsp;
+        {"Built with "}
         <Link color="inherit" href="https://reactjs.org/">
-          React
+          {"React"}
         </Link>
-        , webpage deployed via&nbsp;
+        {", webpage deployed via "}
         <Link color="inherit" href="https://pages.github.com/">
-          GitHub Pages
+          {"GitHub Pages"}
         </Link>
-        , server hosted on&nbsp;
+        {", server hosted on "}
         <Link color="inherit" href="https://www.glitch.com/">
-          Glitch
+          {"Glitch"}
         </Link>
-        , and database provided by&nbsp;
+        {", and database provided by "}
         <Link color="inherit" href="https://www.mongodb.com/">
-          MongoDB
+          {"MongoDB"}
         </Link>
         .
       </Typography>
@@ -41,7 +40,7 @@ export default function Footer() {
         color="text.secondary"
         sx={{ marginLeft: "auto" }}
       >
-        Source code available on GitHub:
+        {"Source code available on GitHub:"}
       </Typography>
       <Tooltip
         aria-label="open GitHub.com/Lujia-cheng"
@@ -56,7 +55,7 @@ export default function Footer() {
         </IconButton>
       </Tooltip>
       <Typography variant="body2" color="text.secondary">
-        Connect me on LinkedIn:
+        {"Connect me on LinkedIn:"}
       </Typography>
       <Tooltip
         aria-label="open LinkedIn.com/in/Luke-Cheng"

@@ -5,27 +5,31 @@ on:
   workflow_dispatch:
 
 jobs:
-  test: # just make sure the node server can be run
-    defaults:
-      run:
-        working-directory: ./backend
-
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Use Node.js 18
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
 
       - name: Install dependencies
         run: npm install
 
-  deploy:
-    needs: test
+      - name: Start the backend
+        run: npm start
 
+      - name: Check if backend is running
+        uses: docker://ghcr.io/wait-for-service@v1
+        with:
+          urls: "http://localhost:3000" # Check if the backend is running on port 3000
+          timeout: 60 # Wait for 60 seconds
+          success: "Backend started successfully!"
+          failure: "Backend failed to start!"
+
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository to github-repo
@@ -39,7 +43,9 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git clone ${{ secrets.BACKEND_GIT_URL }} glitch-repo
           cd glitch-repo
-          cp -rf ${{ github.workspace }}/github-repo/backend/* .
+          cp -rf ${{ github.workspace }}/github-repo${{env.BACKEND_DIR }}/* .
           git add -A
           git commit -m "Automated deployed via GitHub Actions"
           git push ${{ secrets.BACKEND_GIT_URL }}
+        env:
+          BACKEND_DIR: /backend # the directory where the backend code is located
