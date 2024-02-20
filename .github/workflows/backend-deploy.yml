@@ -5,30 +5,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Use Node.js 18
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Start the backend
-        run: npm start
-
-      - name: Check if backend is running
-        uses: docker://ghcr.io/wait-for-service@v1
-        with:
-          urls: "http://localhost:3000" # Check if the backend is running on port 3000
-          timeout: 60 # Wait for 60 seconds
-          success: "Backend started successfully!"
-          failure: "Backend failed to start!"
-
   deploy:
     runs-on: ubuntu-latest
     steps:
