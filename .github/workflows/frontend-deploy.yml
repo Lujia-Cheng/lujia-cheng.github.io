@@ -34,7 +34,11 @@ jobs:
 
       - name: Check for build env # fail if not found
         if: ${{ !vars.REACT_APP_API_URL || vars.REACT_APP_API_URL.length < 1}}
-        run: echo "Missing REACT_APP_API_URL environment variable" && exit 1
+        run: |
+          echo "Missing REACT_APP_API_URL environment variable"
+          exit 1
+        env:
+          REACT_APP_API_URL: ${{ vars.REACT_APP_API_URL }}
 
       - name: Build react to webpage
         run: npm run build
