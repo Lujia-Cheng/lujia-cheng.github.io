@@ -11,6 +11,8 @@ jobs:
         working-directory: ./frontend
 
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_API_URL: ${{ vars.REACT_APP_API_URL }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,14 +37,10 @@ jobs:
       - name: Check api variables
         run: |
           echo "Missing REACT_APP_API_URL environment variable"
-          echo REACT_APP_API_URL: ${{ vars.REACT_APP_API_URL }}
-        env:
-          REACT_APP_API_URL: ${{ vars.REACT_APP_API_URL }}
+          echo REACT_APP_API_URL: ${{ env.REACT_APP_API_URL }}
 
       - name: Build react to webpage
         run: npm run build
-        env:
-          REACT_APP_API_URL: ${{ vars.REACT_APP_API_URL }}
 
       - name: Upload built files as artifact
         uses: actions/upload-pages-artifact@v3
