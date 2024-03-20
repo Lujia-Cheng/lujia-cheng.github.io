@@ -53,6 +53,6 @@ app.use(function (request, response) {
   response.status(404).json({ message: "Undefined API routes" });
 });
 
-const listener = app.listen(process.env.PORT || 4000, function () {
+const listener = app.listen(8080, function () {
   console.log("Your app is listening on port " + listener.address().port);
 });
