@@ -1,0 +1,1 @@
+server deployed to google cloud run. docker is not use currently.

@@ -14,6 +14,7 @@ export default function Footer() {
       style={{
         padding: "1rem",
         display: "flex",
+        alignItems: "center",
       }}
     >
       <Typography variant="body2" color="text.secondary">

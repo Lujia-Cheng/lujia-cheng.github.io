@@ -48,7 +48,7 @@ export default function App() {
       sx={{
         overflowY: "scroll",
         height: "100vh",
-        scrollSnapType: "y proximity",
+        scrollSnapType: "y mandatory",
       }}
     >
       <AppBar

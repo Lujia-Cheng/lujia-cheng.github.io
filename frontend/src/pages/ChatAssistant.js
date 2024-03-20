@@ -20,6 +20,10 @@ export default function ChatAssistant() {
 
   // fixme Load chat messages from sessionStorage
   useEffect(() => {
+    // ping api for initial connection
+    fetch(
+      `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/api/chat`
+    );
     const savedChatHistory = sessionStorage.getItem("chatMessages");
     if (savedChatHistory) {
       setChatHistory(JSON.parse(savedChatHistory));
