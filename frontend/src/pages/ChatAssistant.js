@@ -22,7 +22,7 @@ export default function ChatAssistant() {
   // fixme Load chat messages from sessionStorage
   useEffect(() => {
     // ping api for initial connection
-    fetch(`${process.env.REACT_APP_API_URL}/api/chat`);
+
     const savedChatHistory = sessionStorage.getItem("chatMessages");
     if (savedChatHistory) {
       setChatHistory(JSON.parse(savedChatHistory));
@@ -39,7 +39,6 @@ export default function ChatAssistant() {
     controller?.abort();
     setController(null);
   }
-
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -109,7 +108,7 @@ export default function ChatAssistant() {
     <Box
       sx={{
         height: "100%",
-        maxWidth: "500px",
+        maxWidth: "80%",
         margin: "0 auto",
         padding: "20px",
       }}
@@ -120,7 +119,7 @@ export default function ChatAssistant() {
             key={index}
             sx={{
               textAlign: msg.role === "user" ? "right" : "left",
-              
+              marginBottom: "10px",
             }}
           >
             <Typography
@@ -128,12 +127,12 @@ export default function ChatAssistant() {
               component="div"
               sx={{
                 display: "inline-block",
-                padding: "10px",
+                padding: "0 20px",
                 borderRadius: "10px",
                 backgroundColor:
                   msg.role === "user" ? "chartreuse" : "deepskyblue",
                 color: "black",
-                maxWidth: "80%",
+                maxWidth: "90%",
               }}
             >
               <Markdown>{msg.text}</Markdown>
