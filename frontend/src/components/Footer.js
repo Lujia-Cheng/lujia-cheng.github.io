@@ -20,19 +20,23 @@ export default function Footer() {
       <Typography variant="body2" color="text.secondary">
         {"Built with "}
         <Link color="inherit" href="https://reactjs.org/">
-          {"React"}
+          React
         </Link>
         {", webpage deployed via "}
         <Link color="inherit" href="https://pages.github.com/">
-          {"GitHub Pages"}
+          GitHub Pages
         </Link>
         {", server hosted on "}
-        <Link color="inherit" href="https://www.glitch.com/">
-          {"Glitch"}
+        <Link color="inherit" href="https://azure.microsoft.com/en-us/">
+          Azure Functions
+        </Link>
+        {", AI provided by "}
+        <Link color="inherit" href="https://gemini.google.com/">
+          Gemini
         </Link>
         {", and database provided by "}
         <Link color="inherit" href="https://www.mongodb.com/">
-          {"MongoDB"}
+          MongoDB
         </Link>
         .
       </Typography>

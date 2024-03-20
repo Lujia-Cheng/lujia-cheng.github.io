@@ -1,24 +1,12 @@
 import React from "react";
-import Markdown from "react-markdown";
-import resume from "../assets/CV.md";
-import Paper from "@mui/material/Paper";
+import Link from "@mui/material/Link";
 
 function Resume() {
-  const [markdown, setMarkdown] = React.useState("");
-
-  React.useEffect(() => {
-    fetch(resume)
-      .then((res) => res.text())
-      .then((text) => setMarkdown(text));
-  }, []);
-
   return (
     <div style={{ padding: "5%" }}>
-      <Paper elevation={3}>
-        <div style={{ padding: "4em" }}>
-          <Markdown children={markdown} />
-        </div>
-      </Paper>
+      <Link href="https://1drv.ms/w/s!Aj0prL34dHxZg6xirJ4flEuIZPySEQ?e=LOh7nm">
+        My CV (OneDrive)
+      </Link>
     </div>
   );
 }

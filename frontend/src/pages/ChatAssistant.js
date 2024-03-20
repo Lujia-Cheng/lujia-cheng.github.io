@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
+import Markdown from "react-markdown";
 import { SERVER_STATUS } from "../contexts/ServerStatusContext";
 import SendIcon from "@mui/icons-material/Send";
 import StopIcon from "@mui/icons-material/Stop";
@@ -21,9 +22,7 @@ export default function ChatAssistant() {
   // fixme Load chat messages from sessionStorage
   useEffect(() => {
     // ping api for initial connection
-    fetch(
-      `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/api/chat`
-    );
+    fetch(`${process.env.REACT_APP_API_URL}/api/chat`);
     const savedChatHistory = sessionStorage.getItem("chatMessages");
     if (savedChatHistory) {
       setChatHistory(JSON.parse(savedChatHistory));
@@ -62,21 +61,18 @@ export default function ChatAssistant() {
     setWaitingForServer(true);
 
     const reportToGithubMsg = `If this happens consistently, please report it via the link in the footer.`;
-    // todo move all api calls to seperate file
-    await fetch(
-      `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/api/chat`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: userInput,
-          history: chatHistory,
-        }),
-        signal: newController.signal,
-      }
-    )
+    // todo move all api calls to separate file
+    await fetch(`${process.env.REACT_APP_API_URL}/api/chat`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: userInput,
+        history: chatHistory,
+      }),
+      signal: newController.signal,
+    })
       .then((res) => {
         updateServerStatus(SERVER_STATUS.Connected);
         return res.json();
@@ -124,7 +120,7 @@ export default function ChatAssistant() {
             key={index}
             sx={{
               textAlign: msg.role === "user" ? "right" : "left",
-              margin: "10px 0",
+              
             }}
           >
             <Typography
@@ -140,7 +136,7 @@ export default function ChatAssistant() {
                 maxWidth: "80%",
               }}
             >
-              {msg.text}
+              <Markdown>{msg.text}</Markdown>
             </Typography>
           </Box>
         ))}
