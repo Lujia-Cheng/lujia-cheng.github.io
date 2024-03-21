@@ -7,6 +7,10 @@ import Footer from "./components/Footer";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GithubIcon from "@mui/icons-material/GitHub";
 
 export default function App() {
   const [greetingOpacity, setGreetingOpacity] = useState(1);
@@ -74,6 +78,31 @@ export default function App() {
           <div>
             <Typography variant="h1">Hi, I'm Luke.</Typography>
             <Typography variant="h2">Welcome to my website.</Typography>
+            <br />
+            <div>
+              <Tooltip
+                aria-label="open LinkedIn.com/in/Luke-Cheng"
+                title="in/Luke-Cheng"
+              >
+                <IconButton
+                  onClick={() =>
+                    window.open("https://www.linkedin.com/in/luke-cheng")
+                  }
+                >
+                  <LinkedInIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip
+                aria-label="open GitHub.com/Lujia-cheng"
+                title="GitHub.com/Lujia-cheng"
+              >
+                <IconButton
+                  onClick={() => window.open("https://github.com/Lujia-Cheng")}
+                >
+                  <GithubIcon color="inherit" />
+                </IconButton>
+              </Tooltip>
+            </div>
           </div>
         </Box>
         <Box

@@ -17,6 +17,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
+import DnsOutlinedIcon from "@mui/icons-material/DnsOutlined";
 
 export default function ChatAssistant() {
   const [chatHistory, setChatHistory] = useState([
@@ -31,6 +32,7 @@ export default function ChatAssistant() {
   const [waitingForServer, setWaitingForServer] = useState(false);
   const [controller, setController] = useState();
   const [anchorEl, setAnchorEl] = useState(null);
+
   const handleOpenChatSetting = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -147,6 +149,16 @@ export default function ChatAssistant() {
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             Chat Assistant
           </Typography>
+          <Tooltip
+            aria-label={"Server Status" + serverStatus}
+            title={"Server Status: " + serverStatus}
+          >
+            <span>
+              <IconButton size="large" disabled={true}>
+                <DnsOutlinedIcon className={serverStatus} />
+              </IconButton>
+            </span>
+          </Tooltip>
           <Tooltip title="AI options">
             <IconButton
               size="large"
@@ -159,7 +171,6 @@ export default function ChatAssistant() {
               <SettingsIcon />
             </IconButton>
           </Tooltip>
-
           <Menu
             id="ai"
             anchorEl={anchorEl}

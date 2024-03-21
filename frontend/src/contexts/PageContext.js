@@ -11,12 +11,12 @@ import CodeIcon from "@mui/icons-material/Code";
 import Project from "../pages/Project";
 
 export const PAGE_CONTENT = [
-  { name: "About", icon: <InfoIcon />, content: <About /> },
   {
     name: "Chat",
     icon: <ChatIcon />,
     content: <ChatAssistant />,
   },
+  { name: "About", icon: <InfoIcon />, content: <About /> },
   {
     name: "CV",
     icon: <AssignmentIndIcon />,

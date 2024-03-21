@@ -6,7 +6,6 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
 import GithubIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 export default function Footer() {
   return (
@@ -57,19 +56,6 @@ export default function Footer() {
           }
         >
           <GithubIcon color="inherit" />
-        </IconButton>
-      </Tooltip>
-      <Typography variant="body2" color="text.secondary">
-        {"Connect me on LinkedIn:"}
-      </Typography>
-      <Tooltip
-        aria-label="open LinkedIn.com/in/Luke-Cheng"
-        title="in/Luke-Cheng"
-      >
-        <IconButton
-          onClick={() => window.open("https://www.linkedin.com/in/luke-cheng")}
-        >
-          <LinkedInIcon />
         </IconButton>
       </Tooltip>
     </footer>
