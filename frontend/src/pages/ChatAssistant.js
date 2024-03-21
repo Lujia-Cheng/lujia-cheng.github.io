@@ -13,7 +13,12 @@ import SendIcon from "@mui/icons-material/Send";
 import StopIcon from "@mui/icons-material/Stop";
 
 export default function ChatAssistant() {
-  const [chatHistory, setChatHistory] = useState([]);
+  const [chatHistory, setChatHistory] = useState([
+    {
+      text: `Hello, I'm Luke's personal website assistant. How can I help you today? Please be aware that I might sound informative but I'm still only a large language model. 😅 And for transparency, our conversation will pass through a multiple channels and services. So pleas don't put sensitive information.`,
+      role: "bot",
+    },
+  ]);
   const [userInput, setUserInput] = useState("");
   const { serverStatus, updateServerStatus } = useContext(ServerStatusContext);
   const [waitingForServer, setWaitingForServer] = useState(false);
@@ -21,8 +26,6 @@ export default function ChatAssistant() {
 
   // fixme Load chat messages from sessionStorage
   useEffect(() => {
-    // ping api for initial connection
-
     const savedChatHistory = sessionStorage.getItem("chatMessages");
     if (savedChatHistory) {
       setChatHistory(JSON.parse(savedChatHistory));
