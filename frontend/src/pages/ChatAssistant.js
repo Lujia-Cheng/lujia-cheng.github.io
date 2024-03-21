@@ -11,11 +11,18 @@ import Markdown from "react-markdown";
 import { SERVER_STATUS } from "../contexts/ServerStatusContext";
 import SendIcon from "@mui/icons-material/Send";
 import StopIcon from "@mui/icons-material/Stop";
+import IconButton from "@mui/material/IconButton";
+import SettingsIcon from "@mui/icons-material/Settings";
+import Tooltip from "@mui/material/Tooltip";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Divider from "@mui/material/Divider";
 
 export default function ChatAssistant() {
   const [chatHistory, setChatHistory] = useState([
     {
-      text: `Hello, I'm Luke's personal website assistant. How can I help you today? Please be aware that I might sound informative but I'm still only a large language model. 😅 And for transparency, our conversation will pass through a multiple channels and services. So pleas don't put sensitive information.`,
+      text: `Hello, I'm Luke's personal website assistant. How can I help you today?
+      Please be aware that I might sound informative but I'm still only a large language model. 😅 And for transparency, our conversation will pass through a multiple channels and services. So please don't tell me sensitive information. Here's are a sample questions you can ask, like "When will Luke graduated?"`,
       role: "bot",
     },
   ]);
@@ -23,6 +30,18 @@ export default function ChatAssistant() {
   const { serverStatus, updateServerStatus } = useContext(ServerStatusContext);
   const [waitingForServer, setWaitingForServer] = useState(false);
   const [controller, setController] = useState();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleOpenChatSetting = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseChatSetting = () => {
+    setAnchorEl(null);
+  };
+  const resetCookies = () => {
+    setAnchorEl(null);
+    localStorage.clear();
+    sessionStorage.clear();
+  };
 
   // fixme Load chat messages from sessionStorage
   useEffect(() => {
@@ -117,12 +136,52 @@ export default function ChatAssistant() {
       }}
     >
       <Paper elevation={3} sx={{ overflow: "auto", padding: "10px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            padding: "10px",
+            marginBottom: "10px",
+          }}
+        >
+          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+            Chat Assistant
+          </Typography>
+          <Tooltip title="AI options">
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenChatSetting}
+              color="inherit"
+            >
+              <SettingsIcon />
+            </IconButton>
+          </Tooltip>
+
+          <Menu
+            id="ai"
+            anchorEl={anchorEl}
+            keepMounted
+            open={anchorEl}
+            onClose={handleCloseChatSetting}
+            MenuListProps={{
+              "aria-labelledby": "button",
+            }}
+          >
+            <MenuItem onClick={handleCloseChatSetting}>Gemini</MenuItem>
+            <Divider />
+            <MenuItem onClick={resetCookies}>Reset</MenuItem>
+          </Menu>
+        </Box>
+        <Divider />
         {chatHistory.map((msg, index) => (
           <Box
             key={index}
             sx={{
               textAlign: msg.role === "user" ? "right" : "left",
-              marginBottom: "10px",
+              margin: "10px",
             }}
           >
             <Typography
@@ -132,10 +191,9 @@ export default function ChatAssistant() {
                 display: "inline-block",
                 padding: "0 20px",
                 borderRadius: "10px",
-                backgroundColor:
-                  msg.role === "user" ? "chartreuse" : "deepskyblue",
+                backgroundColor: msg.role === "user" ? "pink" : "paleturquoise",
                 color: "black",
-                maxWidth: "90%",
+                maxWidth: "85%",
               }}
             >
               <Markdown>{msg.text}</Markdown>
