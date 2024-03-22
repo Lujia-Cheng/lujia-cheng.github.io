@@ -5,7 +5,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import CssBaseline from "@mui/material/CssBaseline";
-import { PageProvider } from "./contexts/PageContext";
 import { ServerStatusProvider } from "./contexts/ServerStatusContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -14,9 +13,7 @@ root.render(
     <ThemeProvider>
       <CssBaseline />
       <ServerStatusProvider>
-        <PageProvider>
-          <App />
-        </PageProvider>
+        <App />
       </ServerStatusProvider>
     </ThemeProvider>
   </React.StrictMode>

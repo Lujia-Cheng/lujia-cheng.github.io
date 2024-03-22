@@ -1,11 +1,10 @@
 # client
 
-- [ ] add social link on front page & goes to the app bar as scroll down
-- [ ] move server indicator to chat windows
-- [ ] move linkedin to app bar
-- [ ]
+- [ ] refactor codes
+- move all to all header related code to ./src/components/header, use ./src/components/header/index.js as the entry point
+- same with footer
+- [ ] optimize Contexts
 
 # server
 
 - [ ] save chat history to blob storage
-- 

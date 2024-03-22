@@ -1,5 +1,7 @@
-import NavigationPanel from "./NavigationPanel";
-import UtilityPanel from "./UtilityPanel";
+import NavigationTabs from "./NavigationTabs";
+import UtilityButtons from "./UtilityButtons";
+import SocialLinks from "../SocialLinks";
+
 import Divider from "@mui/material/Divider";
 
 export default function Header() {
@@ -13,14 +15,15 @@ export default function Header() {
         justifyContent: "space-between",
       }}
     >
-      <NavigationPanel />
+      <NavigationTabs />
       <Divider
         orientation="vertical"
         flexItem
         variant="middle"
         sx={{ marginLeft: "auto" }}
       />
-      <UtilityPanel />
+      <SocialLinks />
+      <UtilityButtons />
     </header>
   );
 }

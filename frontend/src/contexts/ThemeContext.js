@@ -5,7 +5,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-const ThemeContext = createContext();
+const ThemeContext = createContext("dark");
 
 export const useThemeContext = () => useContext(ThemeContext);
 

@@ -1,20 +1,16 @@
-import { useEffect, useState, useRef } from "react";
-import { usePage } from "./contexts/PageContext";
+import { useEffect, useRef, useState } from "react";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/header/index";
+import Footer from "./components/footer/index";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import GithubIcon from "@mui/icons-material/GitHub";
+import WelcomePage from "./components/header/WelcomePage";
+
+import Content, { IndexContextProvider } from "./components/body/index";
 
 export default function App() {
   const [greetingOpacity, setGreetingOpacity] = useState(1);
-  const { getPageContent } = usePage();
 
   const scrollContainerRef = useRef(null); // Ref for the scrollable container
 
@@ -47,83 +43,59 @@ export default function App() {
   }, []);
 
   return (
-    <Box
-      ref={scrollContainerRef}
-      sx={{
-        overflowY: "scroll",
-        height: "100vh",
-        scrollSnapType: "y mandatory",
-      }}
-    >
-      <AppBar
+    <IndexContextProvider>
+      <Box
+        ref={scrollContainerRef}
         sx={{
-          height: greetingOpacity > 0 ? "100vh" : "auto",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          position: greetingOpacity > 0 ? "relative" : "sticky",
-          scrollSnapAlign: greetingOpacity > 0 ? "start" : "none",
+          overflowY: "scroll",
+          height: "100vh",
+          scrollSnapType: "y mandatory",
         }}
       >
-        <Box
-          id="greeting"
+        <AppBar
           sx={{
-            display: greetingOpacity > 0 ? "flex" : "none", // Hide the greeting when opacity is 0
+            height: greetingOpacity > 0 ? "100vh" : "auto",
             flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            flexGrow: 1,
-            opacity: greetingOpacity,
-          }}
-        >
-          <div>
-            <Typography variant="h1">Hi, I'm Luke.</Typography>
-            <Typography variant="h2">Welcome to my website.</Typography>
-            <br />
-            <div>
-              <Tooltip
-                aria-label="open LinkedIn.com/in/Luke-Cheng"
-                title="in/Luke-Cheng"
-              >
-                <IconButton
-                  onClick={() =>
-                    window.open("https://www.linkedin.com/in/luke-cheng")
-                  }
-                >
-                  <LinkedInIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                aria-label="open GitHub.com/Lujia-cheng"
-                title="GitHub.com/Lujia-cheng"
-              >
-                <IconButton
-                  onClick={() => window.open("https://github.com/Lujia-Cheng")}
-                >
-                  <GithubIcon color="inherit" />
-                </IconButton>
-              </Tooltip>
-            </div>
-          </div>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
             justifyContent: "space-between",
+            position: greetingOpacity > 0 ? "relative" : "sticky",
             scrollSnapAlign: greetingOpacity > 0 ? "start" : "none",
           }}
         >
-          <Header />
+          <Box
+            id="greeting"
+            sx={{
+              display: greetingOpacity > 0 ? "flex" : "none", // Hide the greeting when opacity is 0
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              flexGrow: 1,
+              opacity: greetingOpacity,
+            }}
+          >
+            <WelcomePage />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              scrollSnapAlign: greetingOpacity > 0 ? "start" : "none",
+            }}
+          >
+            <Header />
+          </Box>
+        </AppBar>
+        <Box
+          sx={{
+            height: greetingOpacity > 0 ? "100vh" : "auto",
+          }}
+        >
+          <article>
+            <Content />
+          </article>
+          <Footer />
         </Box>
-      </AppBar>
-      <Box
-        sx={{
-          height: greetingOpacity > 0 ? "100vh" : "auto",
-        }}
-      >
-        <article>{getPageContent()}</article>
-        <Footer />
       </Box>
-    </Box>
+    </IndexContextProvider>
   );
 }

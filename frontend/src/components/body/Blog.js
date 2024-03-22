@@ -1,7 +1,5 @@
 // todo Turn blog in md to react component
 
-function Blog() {
-
-}
+function Blog() {}
 
 export default Blog;

@@ -1,5 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { ServerStatusContext } from "../contexts/ServerStatusContext";
+import { useContext, useEffect, useState } from "react";
+import {
+  SERVER_STATUS,
+  ServerStatusContext,
+} from "../../../contexts/ServerStatusContext";
+import ServerIndicator from "./ServerIndicator";
 
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -8,7 +12,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 import Markdown from "react-markdown";
-import { SERVER_STATUS } from "../contexts/ServerStatusContext";
 import SendIcon from "@mui/icons-material/Send";
 import StopIcon from "@mui/icons-material/Stop";
 import IconButton from "@mui/material/IconButton";
@@ -17,7 +20,6 @@ import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
-import DnsOutlinedIcon from "@mui/icons-material/DnsOutlined";
 
 export default function ChatAssistant() {
   const [chatHistory, setChatHistory] = useState([
@@ -149,16 +151,7 @@ export default function ChatAssistant() {
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             Chat Assistant
           </Typography>
-          <Tooltip
-            aria-label={"Server Status" + serverStatus}
-            title={"Server Status: " + serverStatus}
-          >
-            <span>
-              <IconButton size="large" disabled={true}>
-                <DnsOutlinedIcon className={serverStatus} />
-              </IconButton>
-            </span>
-          </Tooltip>
+          <ServerIndicator />
           <Tooltip title="AI options">
             <IconButton
               size="large"
