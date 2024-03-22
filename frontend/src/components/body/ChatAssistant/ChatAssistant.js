@@ -45,6 +45,13 @@ export default function ChatAssistant() {
     setAnchorEl(null);
     localStorage.clear();
     sessionStorage.clear();
+    setChatHistory([
+    {
+      text: `Hello, I'm Luke's personal website assistant. How can I help you today?
+      Please be aware that I might sound informative but I'm still only a large language model. 😅 And for transparency, our conversation will pass through a multiple channels and services. So please don't tell me sensitive information. Here's are a sample questions you can ask, like "When will Luke graduated?"`,
+      role: "bot",
+    },
+  ]);
   };
 
   // fixme Load chat messages from sessionStorage
