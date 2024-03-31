@@ -5,27 +5,27 @@ import {
 } from "../../../contexts/ServerStatusContext";
 import ServerIndicator from "./ServerIndicator";
 
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import LinearProgress from "@mui/material/LinearProgress";
-import Markdown from "react-markdown";
 import SendIcon from "@mui/icons-material/Send";
-import StopIcon from "@mui/icons-material/Stop";
-import IconButton from "@mui/material/IconButton";
 import SettingsIcon from "@mui/icons-material/Settings";
-import Tooltip from "@mui/material/Tooltip";
+import StopIcon from "@mui/icons-material/Stop";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import LinearProgress from "@mui/material/LinearProgress";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import Markdown from "react-markdown";
 
 export default function ChatAssistant() {
+  const welcomeMessage = `Hello, I'm Luke's virtual assistant. How can I help you today? I've equipped with a few basic knowledge about Luke. Here's are a sample questions you can ask, like "When will Luke graduated?"\n\nPlease be aware that I might sound informative but I'm still only a large language model. 😅 And for transparency, our conversation will pass through a multiple channels and services. So please don't tell me sensitive information.`;
   const [chatHistory, setChatHistory] = useState([
     {
-      text: `Hello, I'm Luke's personal website assistant. How can I help you today?
-      Please be aware that I might sound informative but I'm still only a large language model. 😅 And for transparency, our conversation will pass through a multiple channels and services. So please don't tell me sensitive information. Here's are a sample questions you can ask, like "When will Luke graduated?"`,
+      text: welcomeMessage,
       role: "bot",
     },
   ]);
@@ -34,6 +34,7 @@ export default function ChatAssistant() {
   const [waitingForServer, setWaitingForServer] = useState(false);
   const [controller, setController] = useState();
   const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
   const handleOpenChatSetting = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,16 +43,15 @@ export default function ChatAssistant() {
     setAnchorEl(null);
   };
   const resetCookies = () => {
-    setAnchorEl(null);
+    setAnchorEl(false);
     localStorage.clear();
     sessionStorage.clear();
     setChatHistory([
-    {
-      text: `Hello, I'm Luke's personal website assistant. How can I help you today?
-      Please be aware that I might sound informative but I'm still only a large language model. 😅 And for transparency, our conversation will pass through a multiple channels and services. So please don't tell me sensitive information. Here's are a sample questions you can ask, like "When will Luke graduated?"`,
-      role: "bot",
-    },
-  ]);
+      {
+        text: welcomeMessage,
+        role: "bot",
+      },
+    ]);
   };
 
   // fixme Load chat messages from sessionStorage
@@ -161,10 +161,9 @@ export default function ChatAssistant() {
           <ServerIndicator />
           <Tooltip title="AI options">
             <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
+              aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
               onClick={handleOpenChatSetting}
               color="inherit"
             >
@@ -175,11 +174,8 @@ export default function ChatAssistant() {
             id="ai"
             anchorEl={anchorEl}
             keepMounted
-            open={anchorEl}
+            open={open}
             onClose={handleCloseChatSetting}
-            MenuListProps={{
-              "aria-labelledby": "button",
-            }}
           >
             <MenuItem onClick={handleCloseChatSetting}>Gemini</MenuItem>
             <Divider />

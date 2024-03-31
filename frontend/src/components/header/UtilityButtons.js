@@ -1,13 +1,11 @@
 import { useThemeContext } from "../../contexts/ThemeContext";
 
+import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
 import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
 
-import LightMode from "@mui/icons-material/LightMode";
 import DarkMode from "@mui/icons-material/DarkMode";
-
-import "../../styles/ServerIndicator.css";
+import LightMode from "@mui/icons-material/LightMode";
 
 export default function UtilityButtons() {
   const theme = useTheme();

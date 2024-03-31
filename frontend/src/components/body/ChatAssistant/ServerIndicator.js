@@ -1,11 +1,11 @@
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
 import DnsOutlinedIcon from "@mui/icons-material/DnsOutlined";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 
 import { useContext } from "react";
 import { ServerStatusContext } from "../../../contexts/ServerStatusContext";
 
-import "../../../styles/ServerIndicator.css";
+import "./ServerIndicator.css";
 
 export default function ServerIndicator() {
   const { serverStatus } = useContext(ServerStatusContext);

@@ -1,6 +1,6 @@
-import { useContext } from "react";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useContext } from "react";
 
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
@@ -11,6 +11,13 @@ export default function NavigationTabs() {
   const { index, updateIndex } = useContext(IndexContext);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  function handleTabClick(event) {
+    event.currentTarget.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
 
   return (
     <IndexContextProvider>
@@ -34,6 +41,7 @@ export default function NavigationTabs() {
               icon={tab.icon}
               iconPosition={isSmallScreen ? "top" : "start"}
               disabled={tab.disabled}
+              onClick={handleTabClick}
             />
           )
         )}

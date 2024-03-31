@@ -1,15 +1,19 @@
-# Luke Cheng
+# Personal webpage with AI chatbot
 
-my personal webpage
+## Description
 
-## Frontend
+This is a personal webpage that I built to showcase my projects and resume. It also has an AI chatbot that I built using Google Gemini API. The chatbot is able to answer questions about me and my projects.
 
-hosted on github pages built with React
+## Tech stack
 
-## Backend
+### Frontend
 
-Azure function
+React, Material-UI, hosted on github.io
 
-## Database
+### Backend
 
-Azure blob storage
+Azure Functions, Google Gemini API, hosted on Azure student account
+
+### CI/CD
+
+Github Actions, Azure DevOps

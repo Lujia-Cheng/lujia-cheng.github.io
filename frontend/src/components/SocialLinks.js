@@ -1,8 +1,8 @@
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import GithubIcon from "@mui/icons-material/GitHub";
 import EmailIcon from "@mui/icons-material/Email";
+import GithubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function SocialLinks() {
   const socialMedias = [
@@ -27,10 +27,11 @@ export default function SocialLinks() {
     <div>
       {socialMedias.map((socialMedia) => (
         <Tooltip
+          key={socialMedia.name}
           aria-label={`open ${socialMedia.name}`}
           title={socialMedia.name}
         >
-          <IconButton onClick={() => window.open(socialMedia.url)}>
+          <IconButton size="large" onClick={() => window.open(socialMedia.url)}>
             <socialMedia.icon />
           </IconButton>
         </Tooltip>
