@@ -1,5 +1,3 @@
-import React from "react";
-
 import Feedback from "./Feedback";
 import Acknowledgement from "./Acknowledgement";
 
@@ -11,6 +9,7 @@ export default function Footer() {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: "space-between",
       }}
     >
       <Acknowledgement />

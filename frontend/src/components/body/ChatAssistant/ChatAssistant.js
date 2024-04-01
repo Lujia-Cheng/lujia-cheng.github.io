@@ -115,7 +115,7 @@ export default function ChatAssistant() {
       .catch((err) => {
         switch (err.name) {
           case "AbortError":
-            botMessage.text = "Request aborted";
+            botMessage.text = `Per request, your previous message was not sent`;
             break;
           case "TimeoutError":
             // fixme it does not return this error according to https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static#return_value
@@ -141,8 +141,6 @@ export default function ChatAssistant() {
     <Box
       sx={{
         height: "100%",
-        maxWidth: "80%",
-        margin: "0 auto",
         padding: "20px",
       }}
     >
@@ -159,7 +157,7 @@ export default function ChatAssistant() {
             Chat Assistant
           </Typography>
           <ServerIndicator />
-          <Tooltip title="AI options">
+          <Tooltip title="Chat Settings">
             <IconButton
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"

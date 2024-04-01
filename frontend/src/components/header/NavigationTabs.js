@@ -8,9 +8,9 @@ import Tabs from "@mui/material/Tabs";
 import { IndexContext, IndexContextProvider, TabsData } from "../body/index";
 
 export default function NavigationTabs() {
-  const { index, updateIndex } = useContext(IndexContext);
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const { index, updateIndex } = useContext(IndexContext);
 
   function handleTabClick(event) {
     event.currentTarget.scrollIntoView({

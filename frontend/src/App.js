@@ -11,23 +11,21 @@ import Content, { IndexContextProvider } from "./components/body/index";
 
 export default function App() {
   const [greetingOpacity, setGreetingOpacity] = useState(1);
-
-  const scrollContainerRef = useRef(null); // Ref for the scrollable container
+  const scrollContainerRef = useRef(null);
+  const greetingRef = useRef(null); // Ref for the greeting element
 
   useEffect(() => {
-    const scrollContainer = scrollContainerRef.current; // Direct reference to the scroll container
-    if (!scrollContainer) return;
+    const scrollContainer = scrollContainerRef.current;
+    const greetingElement = greetingRef.current; // Get the greeting element using useRef
 
     function handleScroll() {
-      const greetingElement = document.getElementById("greeting");
-      if (!greetingElement) return;
+      if (!greetingElement || !scrollContainer) return;
 
       const greetingBottom = greetingElement.getBoundingClientRect().bottom;
       const containerHeight = scrollContainer.clientHeight;
 
-      // Calculate the new opacity based on the position of the greeting element
       let newOpacity = greetingBottom / containerHeight;
-      if (greetingBottom <= 0) {
+      if (newOpacity <= 0) {
         newOpacity = 0;
         scrollContainer.removeEventListener("scroll", handleScroll);
       }
@@ -35,10 +33,8 @@ export default function App() {
       setGreetingOpacity(newOpacity);
     }
 
-    // Attach the event listener to the scroll container
     scrollContainer.addEventListener("scroll", handleScroll);
 
-    // Clean up
     return () => scrollContainer.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -49,7 +45,7 @@ export default function App() {
         sx={{
           overflowY: "scroll",
           height: "100vh",
-          scrollSnapType: "y proximity",
+          scrollSnapType: "y mandatory",
         }}
       >
         <AppBar
@@ -63,6 +59,7 @@ export default function App() {
         >
           <Box
             id="greeting"
+            ref={greetingRef}
             sx={{
               display: greetingOpacity > 0 ? "flex" : "none", // Hide the greeting when opacity is 0
               flexDirection: "column",
@@ -70,6 +67,7 @@ export default function App() {
               alignItems: "center",
               flexGrow: 1,
               opacity: greetingOpacity,
+              transition: "opacity 0.3s ease-out",
             }}
           >
             <WelcomePage />

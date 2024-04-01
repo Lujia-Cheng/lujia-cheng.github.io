@@ -4,7 +4,6 @@ import React from "react";
 
 export default function Acknowledgement() {
   return (
-    <div>
       <Typography variant="body2" color="text.secondary">
         {"Built with "}
         <Link color="inherit" href="https://reactjs.org/">
@@ -28,6 +27,5 @@ export default function Acknowledgement() {
         </Link>
         .
       </Typography>
-    </div>
   );
 }
