@@ -4,7 +4,13 @@ import SocialLinks from "../SocialLinks";
 
 import Divider from "@mui/material/Divider";
 
-export default function Header() {
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+export default function Header({ showSocialLinks = true }) {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <header
       style={{
@@ -22,7 +28,7 @@ export default function Header() {
         variant="middle"
         sx={{ marginLeft: "auto" }}
       />
-      <SocialLinks />
+      {showSocialLinks && <SocialLinks compact={isSmallScreen} />}
       <UtilityButtons />
     </header>
   );

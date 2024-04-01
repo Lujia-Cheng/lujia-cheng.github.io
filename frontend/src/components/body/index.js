@@ -1,14 +1,15 @@
 import { createContext, useContext, useState } from "react";
-import ChatIcon from "@mui/icons-material/Chat";
-import ChatAssistant from "./ChatAssistant/ChatAssistant";
-import InfoIcon from "@mui/icons-material/Info";
 import About from "./About";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
-import Resume from "./Resume";
-import CreateIcon from "@mui/icons-material/Create";
 import Blog from "./Blog";
-import CodeIcon from "@mui/icons-material/Code";
+import ChatAssistant from "./ChatAssistant/ChatAssistant";
 import Project from "./Project";
+import Resume from "./Resume";
+
+import ChatIcon from "@mui/icons-material/Chat";
+import DataObjectIcon from "@mui/icons-material/DataObject";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import Face from "@mui/icons-material/Face";
+import SummarizeIcon from "@mui/icons-material/Summarize";
 
 export const TabsData = [
   {
@@ -16,19 +17,19 @@ export const TabsData = [
     icon: <ChatIcon />,
     content: <ChatAssistant />,
   },
-  { name: "About", icon: <InfoIcon />, content: <About /> },
+  { name: "About", icon: <Face />, content: <About /> },
   {
     name: "CV",
-    icon: <AssignmentIndIcon />,
+    icon: <SummarizeIcon />,
     content: <Resume />,
   },
   {
     name: "Blogs",
-    icon: <CreateIcon />,
+    icon: <EditNoteIcon />,
     content: <Blog />,
     disabled: true,
   },
-  { name: "Projects", icon: <CodeIcon />, content: <Project /> },
+  { name: "Projects", icon: <DataObjectIcon />, content: <Project /> },
 ];
 
 // This component returns the body of the tab based on the index

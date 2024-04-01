@@ -6,14 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
+import Info from "@mui/icons-material/Info";
 
-export default function SocialLinks({ size = "medium" }) {
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
+export default function SocialLinks({ size = "medium", compact = false }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -43,14 +38,10 @@ export default function SocialLinks({ size = "medium" }) {
 
   return (
     <>
-      {isSmallScreen ? (
+      {compact ? (
         <>
           <IconButton onClick={handleClick}>
-            <ArrowDropDownCircleIcon
-              variant="outlined"
-              size="large"
-              aria-label="social media links"
-            />
+            <Info size={size} aria-label="social media links" />
           </IconButton>
           <Menu
             aria-label="social media links"
@@ -75,9 +66,8 @@ export default function SocialLinks({ size = "medium" }) {
                   handleClose();
                 }}
               >
-                <Tooltip title={socialMedia.name} placement="left">
-                  <socialMedia.icon size={size} />
-                </Tooltip>
+                <socialMedia.icon size={size} sx={{ marginRight: "0.5em" }} />
+                {socialMedia.name}
               </MenuItem>
             ))}
           </Menu>

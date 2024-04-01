@@ -10,7 +10,7 @@ import WelcomePage from "./components/header/WelcomePage";
 import Content, { IndexContextProvider } from "./components/body/index";
 
 export default function App() {
-  const [greetingOpacity, setGreetingOpacity] = useState(1);
+  const [showGreeting, setShowGreeting] = useState(true);
   const scrollContainerRef = useRef(null);
   const greetingRef = useRef(null); // Ref for the greeting element
 
@@ -20,21 +20,20 @@ export default function App() {
 
     function handleScroll() {
       if (!greetingElement || !scrollContainer) return;
-
       const greetingBottom = greetingElement.getBoundingClientRect().bottom;
       const containerHeight = scrollContainer.clientHeight;
 
-      let newOpacity = greetingBottom / containerHeight;
-      if (newOpacity <= 0) {
-        newOpacity = 0;
+      let opacityFactor = greetingBottom / containerHeight;
+      if (opacityFactor <= 0) {
+        opacityFactor = 0;
+        setShowGreeting(false);
         scrollContainer.removeEventListener("scroll", handleScroll);
       }
 
-      setGreetingOpacity(newOpacity);
+      greetingElement.style.opacity = opacityFactor;
     }
 
     scrollContainer.addEventListener("scroll", handleScroll);
-
     return () => scrollContainer.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -45,29 +44,28 @@ export default function App() {
         sx={{
           overflowY: "scroll",
           height: "100vh",
-          scrollSnapType: "y mandatory",
+          scrollSnapType: "y proximity",
         }}
       >
         <AppBar
           sx={{
-            height: greetingOpacity > 0 ? "100vh" : "auto",
+            height: showGreeting ? "100vh" : "auto",
             flexDirection: "column",
             justifyContent: "space-between",
-            position: greetingOpacity > 0 ? "relative" : "sticky",
-            scrollSnapAlign: greetingOpacity > 0 ? "start" : "none",
+            position: showGreeting ? "relative" : "sticky",
+            scrollSnapAlign: showGreeting ? "start" : "none",
           }}
         >
           <Box
-            id="greeting"
             ref={greetingRef}
             sx={{
-              display: greetingOpacity > 0 ? "flex" : "none", // Hide the greeting when opacity is 0
+              display: showGreeting ? "flex" : "none", // Hide the greeting when opacity is 0
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
               flexGrow: 1,
-              opacity: greetingOpacity,
-              transition: "opacity 0.3s ease-out",
+              opacity: 1,
+              transition: "0.2 s ease-out",
             }}
           >
             <WelcomePage />
@@ -77,15 +75,15 @@ export default function App() {
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
-              scrollSnapAlign: greetingOpacity > 0 ? "start" : "none",
+              scrollSnapAlign: showGreeting ? "start" : "none",
             }}
           >
-            <Header />
+            <Header showSocialLinks={!showGreeting} />
           </Box>
         </AppBar>
         <Box
           sx={{
-            height: greetingOpacity > 0 ? "100vh" : "auto",
+            height: showGreeting ? "100vh" : "auto",
           }}
         >
           <article>
