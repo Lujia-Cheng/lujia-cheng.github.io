@@ -12,35 +12,33 @@ function About() {
       }}
     >
       <Paper display="flex">
-        {/* //if sx body1, else h5 */}
+        {/* todo if sx body1, else h5 */}
         <Typography variant="h6" padding="2em">
-          Hi, glad to see you here! I'm a Master of Information Science student
-          at the University of Pittsburgh, set to graduate in May 2024. I
-          actually majored in Chemistry and Philosophy during my undergrad and
-          have worked as a chemist for a brief period.
+          Hi, glad to see you here! I&apos;m a Master of Information Science
+          student at the University of Pittsburgh, set to graduate in May 2024.
+          I actually majored in Chemistry and Philosophy during my undergrad at
+          Virginia Tech and have worked as a chemist for a brief period.
           <br />
           <br />
-          But now, I'm transitioning into a career in data science and software
-          development. I discovered that I enjoy programming and data analysis
-          more than lab work, and compilers definitely provide faster feedback
-          than a failed three-day experiment! Interestingly, one of my chemistry
-          requirements courses introduced me to programming. Then I discovered
-          the game <Link href="https://screeps.com/">Screeps</Link>, an MMO that
-          uses JavaScript, which you code your own AI to play the game.
+          However, I&apos;m now transitioning into a career in software
+          development. I&apos;ve discovered a passion for programming, finding
+          it more rewarding than lab work. The immediate feedback of a compiler
+          is certainly preferable to a failed three-day experiment!
           <br />
           <br />
-          Right now, I'm working to buff this tiny website up. The chat
-          assistant on top should be running. I just haven't train it with my
-          custom data using my own resume, story, and interview questions, yet.
+          Interestingly, my interest in programming stemmed from one of my
+          chemistry graduation requirements: intro to Java. Yep, even chemists
+          at Virginia Tech require programming skills. Later, I discovered the
+          MMO game <Link href="https://screeps.com/">Screeps</Link>. In this
+          game, you code your own AI bot (non-generative, of course) in
+          JavaScript to establish a base, mine resources, and build an army to
+          fight against other players. I found it fascinating, which is how I
+          got into programming.
           <br />
           <br />
-          Right now, I'm working on improving this website. The chat assistant
-          at the top is functional, but I still need to train it with my custom
-          data, including my resume, stories, and interview questions I
-          gathered.
-          <br />
-          <br />
-          Feel free to reach out to me on linkedin or github. It's in the footer
+          I&apos;ve spent quite a bit of time refining my AI chatbot. Feel free
+          to check it out in another tab! You can also connect with me on
+          LinkedIn using the icon in the top right.
         </Typography>
       </Paper>
     </div>
