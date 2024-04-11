@@ -8,11 +8,11 @@ jobs:
   build:
     defaults:
       run:
-        working-directory: ./frontend
+        working-directory: ./client
 
     runs-on: ubuntu-latest
     env:
-      REACT_APP_API_URL: ${{ vars.REACT_APP_API_URL }}
+      VITE_API_URL: ${{ vars.VITE_API_URL }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,7 +26,7 @@ jobs:
         uses: actions/cache@v4
         id: cache
         with:
-          path: ./frontend/node_modules
+          path: ./client/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
 
@@ -36,8 +36,8 @@ jobs:
 
       - name: Check api variables
         run: |
-          echo "Missing REACT_APP_API_URL environment variable"
-          echo REACT_APP_API_URL: ${{ env.REACT_APP_API_URL }}
+          echo "Missing VITE_API_URL environment variable"
+          echo VITE_API_URL: ${{ env.VITE_API_URL }}
 
       - name: Build react to webpage
         run: npm run build
@@ -45,7 +45,7 @@ jobs:
       - name: Upload built files as artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./frontend/build
+          path: ./client/dist
 
   deploy:
     needs: build

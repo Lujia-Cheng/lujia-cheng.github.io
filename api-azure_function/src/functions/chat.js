@@ -26,7 +26,7 @@ async function chat(request, context) {
   context.log(`Http function processed request for url "${request.url}"`);
 
   const body = await request.json();
-  context.log(body);
+  context.log("client msg:", new Date(), body);
   if (!body || !body.message) {
     return {
       status: 400,
@@ -116,9 +116,8 @@ async function chat(request, context) {
     ],
   });
 
-  // console.log(msg);
   const result = await chat.sendMessage(message);
-  context.log(message, "|", JSON.stringify(result));
+  context.log("Gemini Response:", new Date(), JSON.stringify(result));
   if (result.error) {
     return {
       status: 500,
